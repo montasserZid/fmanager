@@ -1,0 +1,3642 @@
+{
+   "teams":{
+      "esperance":{
+         "name":"Esperance Sportive de Tunis",
+         "logo":"https://logodetimes.com/wp-content/uploads/esperance-sportive-de-tunis.png",
+         "players":[
+            {
+               "id":0,
+               "number":1,
+               "name":"Amanallah Memmiche",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€800k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":79,
+                  "positioning":74,
+                  "diving":79,
+                  "kicking":69,
+                  "reflexes":84
+               }
+            },
+            {
+               "id":1,
+               "number":32,
+               "name":"Bechir Ben Said",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/348144-1632991446.png?lm=1",
+               "attributes":{
+                  "handling":74,
+                  "positioning":69,
+                  "diving":74,
+                  "kicking":64,
+                  "reflexes":79
+               }
+            },
+            {
+               "id":2,
+               "number":26,
+               "name":"Mohamed Sedki Debchi",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€100k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/572190-1524331232.jpg?lm=1",
+               "attributes":{
+                  "handling":59,
+                  "positioning":54,
+                  "diving":59,
+                  "kicking":54,
+                  "reflexes":64
+               }
+            },
+            {
+               "id":3,
+               "number":16,
+               "name":"Mokhtar Ifaoui",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":null,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":50,
+                  "positioning":45,
+                  "diving":50,
+                  "kicking":45,
+                  "reflexes":54
+               }
+            },
+            {
+               "id":4,
+               "number":15,
+               "name":"Mohamed Amine Tougai",
+               "position":"Centre-Back",
+               "nationality":"Algeria",
+               "market_value":"€1.50m",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":40,
+                  "passing":74,
+                  "dribbling":54,
+                  "defense":84,
+                  "physique":84
+               }
+            },
+            {
+               "id":5,
+               "number":5,
+               "name":"Yassine Meriah",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€1.20m",
+               "captain":true,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/306330-1585411859.jpeg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":50,
+                  "passing":79,
+                  "dribbling":59,
+                  "defense":79,
+                  "physique":79
+               }
+            },
+            {
+               "id":6,
+               "number":6,
+               "name":"Hamza Jelassi",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/244044-1632991423.png?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":30,
+                  "passing":64,
+                  "dribbling":45,
+                  "defense":74,
+                  "physique":74
+               }
+            },
+            {
+               "id":7,
+               "number":null,
+               "name":"Abdelaziz Knani",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€150k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":25,
+                  "passing":59,
+                  "dribbling":40,
+                  "defense":69,
+                  "physique":69
+               }
+            },
+            {
+               "id":8,
+               "number":null,
+               "name":"Aziz Koudhai",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":45,
+                  "shooting":20,
+                  "passing":50,
+                  "dribbling":35,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":9,
+               "number":20,
+               "name":"Mohamed Amine Ben Hamida",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€700k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/454495-1646245853.jpeg?lm=1",
+               "attributes":{
+                  "pace":74,
+                  "shooting":45,
+                  "passing":69,
+                  "dribbling":64,
+                  "defense":69,
+                  "physique":69
+               }
+            },
+            {
+               "id":10,
+               "number":12,
+               "name":"Nidhal Laifi",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€550k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":40,
+                  "passing":64,
+                  "dribbling":59,
+                  "defense":64,
+                  "physique":64
+               }
+            },
+            {
+               "id":11,
+               "number":null,
+               "name":"Amanallah Mjahed",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€350k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":35,
+                  "passing":59,
+                  "dribbling":54,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":12,
+               "number":13,
+               "name":"Raed Bouchniba",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":45,
+                  "passing":69,
+                  "dribbling":59,
+                  "defense":69,
+                  "physique":69
+               }
+            },
+            {
+               "id":13,
+               "number":2,
+               "name":"Mohamed Ben Ali",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€500k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":40,
+                  "passing":64,
+                  "dribbling":54,
+                  "defense":64,
+                  "physique":64
+               }
+            },
+            {
+               "id":14,
+               "number":25,
+               "name":"Elyas Bouzaiene",
+               "position":"Right-Back",
+               "nationality":[
+                  "Sweden",
+                  "Tunisia"
+               ],
+               "market_value":"€300k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":35,
+                  "passing":59,
+                  "dribbling":50,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":15,
+               "number":3,
+               "name":"Ibrahima Keita",
+               "position":"Right-Back",
+               "nationality":[
+                  "Mauritania",
+                  "Mali"
+               ],
+               "market_value":"€150k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/995279-1706647545.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":30,
+                  "passing":54,
+                  "dribbling":45,
+                  "defense":54,
+                  "physique":59
+               }
+            },
+            {
+               "id":16,
+               "number":38,
+               "name":"Khalil Guenichi",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€500k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":35,
+                  "passing":69,
+                  "dribbling":50,
+                  "defense":74,
+                  "physique":74
+               }
+            },
+            {
+               "id":17,
+               "number":8,
+               "name":"Houssem Tka",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€1.20m",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/581156-1624211296.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":59,
+                  "passing":79,
+                  "dribbling":69,
+                  "defense":59,
+                  "physique":69
+               }
+            },
+            {
+               "id":18,
+               "number":14,
+               "name":"Onuche Ogbelu",
+               "position":"Central Midfield",
+               "nationality":"Nigeria",
+               "market_value":"€700k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1015616-1679682942.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":50,
+                  "passing":69,
+                  "dribbling":59,
+                  "defense":64,
+                  "physique":74
+               }
+            },
+            {
+               "id":19,
+               "number":4,
+               "name":"Mohamed Wael Derbali",
+               "position":"Central Midfield",
+               "nationality":[
+                  "Tunisia",
+                  "France"
+               ],
+               "market_value":"€600k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":45,
+                  "passing":74,
+                  "dribbling":64,
+                  "defense":54,
+                  "physique":64
+               }
+            },
+            {
+               "id":20,
+               "number":null,
+               "name":"Mootez Zaddem",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/750487-1639471363.png?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":40,
+                  "passing":64,
+                  "dribbling":54,
+                  "defense":50,
+                  "physique":59
+               }
+            },
+            {
+               "id":21,
+               "number":17,
+               "name":"Zakaria El Ayeb",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":35,
+                  "passing":59,
+                  "dribbling":50,
+                  "defense":45,
+                  "physique":54
+               }
+            },
+            {
+               "id":22,
+               "number":36,
+               "name":"Chiheb Jebali",
+               "position":"Attacking Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€1.00m",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/295409-1641374666.png?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":69,
+                  "passing":79,
+                  "dribbling":79,
+                  "defense":40,
+                  "physique":59
+               }
+            },
+            {
+               "id":23,
+               "number":21,
+               "name":"Abdramane Konaté",
+               "position":"Attacking Midfield",
+               "nationality":"Cote d'Ivoire",
+               "market_value":"€850k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":64,
+                  "passing":74,
+                  "dribbling":74,
+                  "defense":35,
+                  "physique":59
+               }
+            },
+            {
+               "id":24,
+               "number":37,
+               "name":"Mohamed Mouhli",
+               "position":"Attacking Midfield",
+               "nationality":[
+                  "Belgium",
+                  "Tunisia"
+               ],
+               "market_value":"€300k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/433129-1713878887.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":54,
+                  "passing":64,
+                  "dribbling":64,
+                  "defense":30,
+                  "physique":50
+               }
+            },
+            {
+               "id":25,
+               "number":null,
+               "name":"Aziz Fellah",
+               "position":"Attacking Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€50k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":40,
+                  "passing":50,
+                  "dribbling":54,
+                  "defense":25,
+                  "physique":45
+               }
+            },
+            {
+               "id":26,
+               "number":11,
+               "name":"Youcef Belaïli",
+               "position":"Left Winger",
+               "nationality":"Algeria",
+               "market_value":"€1.70m",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/175014-1743953300.jpg?lm=1",
+               "attributes":{
+                  "pace":79,
+                  "shooting":74,
+                  "passing":69,
+                  "dribbling":84,
+                  "defense":30,
+                  "physique":64
+               }
+            },
+            {
+               "id":27,
+               "number":null,
+               "name":"Oussema Bouguerra",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/479300-1641374894.png?lm=1",
+               "attributes":{
+                  "pace":74,
+                  "shooting":59,
+                  "passing":59,
+                  "dribbling":69,
+                  "defense":25,
+                  "physique":54
+               }
+            },
+            {
+               "id":28,
+               "number":28,
+               "name":"Younes Rached",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":54,
+                  "passing":54,
+                  "dribbling":64,
+                  "defense":20,
+                  "physique":50
+               }
+            },
+            {
+               "id":29,
+               "number":39,
+               "name":"Mohamed Rayane Hamrouni",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€200k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":45,
+                  "passing":50,
+                  "dribbling":59,
+                  "defense":20,
+                  "physique":45
+               }
+            },
+            {
+               "id":30,
+               "number":18,
+               "name":"Haythem Dhaou",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":35,
+                  "passing":40,
+                  "dribbling":50,
+                  "defense":15,
+                  "physique":40
+               }
+            },
+            {
+               "id":31,
+               "number":34,
+               "name":"Jack Diarra",
+               "position":"Left Winger",
+               "nationality":"Burkina Faso",
+               "market_value":null,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":40,
+                  "passing":45,
+                  "dribbling":54,
+                  "defense":15,
+                  "physique":50
+               }
+            },
+            {
+               "id":32,
+               "number":10,
+               "name":"Yan Sasse",
+               "position":"Right Winger",
+               "nationality":"Brazil",
+               "market_value":"€1.80m",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/469136-1579457572.jpeg?lm=1",
+               "attributes":{
+                  "pace":84,
+                  "shooting":79,
+                  "passing":74,
+                  "dribbling":84,
+                  "defense":30,
+                  "physique":59
+               }
+            },
+            {
+               "id":33,
+               "number":null,
+               "name":"Kouceila Boualia",
+               "position":"Right Winger",
+               "nationality":"Algeria",
+               "market_value":"€600k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/848796-1731012549.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":59,
+                  "passing":59,
+                  "dribbling":69,
+                  "defense":25,
+                  "physique":54
+               }
+            },
+            {
+               "id":34,
+               "number":30,
+               "name":"Koussay Maacha",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€200k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":45,
+                  "passing":50,
+                  "dribbling":59,
+                  "defense":20,
+                  "physique":45
+               }
+            },
+            {
+               "id":35,
+               "number":null,
+               "name":"Bilel Sahli",
+               "position":"Second Striker",
+               "nationality":[
+                  "France",
+                  "Tunisia"
+               ],
+               "market_value":null,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":64,
+                  "passing":59,
+                  "dribbling":69,
+                  "defense":25,
+                  "physique":54
+               }
+            },
+            {
+               "id":36,
+               "number":19,
+               "name":"Achref Jabri",
+               "position":"Centre-Forward",
+               "nationality":"Tunisia",
+               "market_value":"€500k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":69,
+                  "passing":54,
+                  "dribbling":59,
+                  "defense":20,
+                  "physique":74
+               }
+            },
+            {
+               "id":37,
+               "number":33,
+               "name":"Ahmed Bouassida",
+               "position":"Centre-Forward",
+               "nationality":"Tunisia",
+               "market_value":"€275k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":59,
+                  "passing":50,
+                  "dribbling":54,
+                  "defense":15,
+                  "physique":69
+               }
+            },
+            {
+               "id":38,
+               "number":null,
+               "name":"Kebba Sowe",
+               "position":"Centre-Forward",
+               "nationality":"The Gambia",
+               "market_value":"€200k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":54,
+                  "passing":45,
+                  "dribbling":50,
+                  "defense":15,
+                  "physique":64
+               }
+            },
+            {
+               "id":39,
+               "number":29,
+               "name":"Aboubacar Diakité",
+               "position":"Centre-Forward",
+               "nationality":"Mali",
+               "market_value":"€75k",
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":45,
+                  "passing":40,
+                  "dribbling":45,
+                  "defense":10,
+                  "physique":59
+               }
+            }
+         ]
+      },
+      "club_africain":{
+         "name":"Club Africain",
+         "logo":"https://img.favpng.com/19/16/18/club-africain-toile-sportive-du-sahel-tunisian-cup-cs-sfaxien-png-favpng-cQDQr4FQwRLhX1kThmTCGAEUC_t.jpg",
+         "players":[
+            {
+               "id":44,
+               "number":1,
+               "name":"Abdelmouhib Chamakh",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "age":24,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":69,
+                  "positioning":64,
+                  "diving":69,
+                  "kicking":59,
+                  "reflexes":74
+               }
+            },
+            {
+               "id":45,
+               "number":16,
+               "name":"Ghaith Yeferni",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "age":27,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/478147-1580812320.jpg?lm=1",
+               "attributes":{
+                  "handling":69,
+                  "positioning":64,
+                  "diving":69,
+                  "kicking":59,
+                  "reflexes":74
+               }
+            },
+            {
+               "id":46,
+               "number":null,
+               "name":"Wassim Maghzaoui",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1192867-1734450274.jpeg?lm=1",
+               "attributes":{
+                  "handling":54,
+                  "positioning":50,
+                  "diving":54,
+                  "kicking":50,
+                  "reflexes":59
+               }
+            },
+            {
+               "id":47,
+               "number":22,
+               "name":"Malek Saada",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":50,
+                  "positioning":45,
+                  "diving":50,
+                  "kicking":45,
+                  "reflexes":54
+               }
+            },
+            {
+               "id":48,
+               "number":40,
+               "name":"Dries Arfaoui",
+               "position":"Goalkeeper",
+               "nationality":[
+                  "Tunisia",
+                  "Belgium"
+               ],
+               "market_value":"€25k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1120677-1692212580.jpg?lm=1",
+               "attributes":{
+                  "handling":50,
+                  "positioning":45,
+                  "diving":50,
+                  "kicking":45,
+                  "reflexes":54
+               }
+            },
+            {
+               "id":49,
+               "number":20,
+               "name":"Hamza Ben Abda",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€700k",
+               "age":30,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/454494-1723656027.png?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":40,
+                  "passing":69,
+                  "dribbling":50,
+                  "defense":79,
+                  "physique":79
+               }
+            },
+            {
+               "id":50,
+               "number":2,
+               "name":"Ali Youssef",
+               "position":"Centre-Back",
+               "nationality":"Libya",
+               "market_value":"€650k",
+               "age":24,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/944724-1756231687.png?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":35,
+                  "passing":64,
+                  "dribbling":50,
+                  "defense":74,
+                  "physique":74
+               }
+            },
+            {
+               "id":51,
+               "number":4,
+               "name":"Yassine Bouabid",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/509325-1724519298.jpeg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":30,
+                  "passing":59,
+                  "dribbling":45,
+                  "defense":69,
+                  "physique":69
+               }
+            },
+            {
+               "id":52,
+               "number":6,
+               "name":"Toufik Cherifi",
+               "position":"Centre-Back",
+               "nationality":"Algeria",
+               "market_value":"€200k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1283034-1725600779.png?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":39,
+                  "passing":44,
+                  "dribbling":59,
+                  "defense":14,
+                  "physique":34
+               }
+            },
+            {
+               "id":99,
+               "number":30,
+               "name":"Mohamed Rayane Anane",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€150k",
+               "age":19,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1373350-1746123954.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":34,
+                  "passing":39,
+                  "dribbling":59,
+                  "defense":14,
+                  "physique":29
+               }
+            },
+            {
+               "id":100,
+               "number":null,
+               "name":"Maher Ben Seghaier",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":44,
+                  "shooting":29,
+                  "passing":34,
+                  "dribbling":44,
+                  "defense":19,
+                  "physique":39
+               }
+            },
+            {
+               "id":101,
+               "number":31,
+               "name":"Oumar Bah",
+               "position":"Left Winger",
+               "nationality":"Mali",
+               "market_value":null,
+               "age":null,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":29,
+                  "passing":34,
+                  "dribbling":49,
+                  "defense":14,
+                  "physique":34
+               }
+            },
+            {
+               "id":102,
+               "number":28,
+               "name":"Raki Aouani",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€750k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1010647-1706310016.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":44,
+                  "passing":44,
+                  "dribbling":69,
+                  "defense":14,
+                  "physique":39
+               }
+            },
+            {
+               "id":103,
+               "number":18,
+               "name":"Cristo",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/950684-1675882270.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":39,
+                  "passing":44,
+                  "dribbling":64,
+                  "defense":14,
+                  "physique":39
+               }
+            },
+            {
+               "id":104,
+               "number":21,
+               "name":"Nizar Smichi",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "age":25,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":34,
+                  "passing":39,
+                  "dribbling":49,
+                  "defense":19,
+                  "physique":39
+               }
+            },
+            {
+               "id":105,
+               "number":10,
+               "name":"Mohamed Kanté",
+               "position":"Centre-Forward",
+               "nationality":"Guinea",
+               "market_value":"€200k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1016332-1727551241.png?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":54,
+                  "passing":34,
+                  "dribbling":44,
+                  "defense":14,
+                  "physique":54
+               }
+            },
+            {
+                "id": 106,
+                "number": 30,
+                "name": "Toufik Cherifi",
+                "position": "Centre-Back",
+                "nationality": "Algeria",
+                "market_value": "€200k",
+                "age": 23,
+                "image_url": "https://img.a.transfermarkt.technology/portrait/medium/927313-1756231442.png?lm=1",
+                "attributes": {
+                  "pace": 49,
+                  "shooting": 54,
+                  "passing": 34,
+                  "dribbling": 44,
+                  "defense": 14,
+                  "physique": 54
+                }
+            },
+            {
+               "id":53,
+               "number":30,
+               "name":"Oussema Shili",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€500k",
+               "age":28,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/842994-1724503573.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":39,
+                  "passing":64,
+                  "dribbling":59,
+                  "defense":64,
+                  "physique":64
+               }
+            },
+            {
+               "id":54,
+               "number":33,
+               "name":"Houssem Ben Ali",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€450k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":34,
+                  "passing":59,
+                  "dribbling":54,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":55,
+               "number":15,
+               "name":"Wills Tene Nkingne",
+               "position":"Left-Back",
+               "nationality":[
+                  "Cameroon",
+                  "France"
+               ],
+               "market_value":"€350k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1076805-1724508993.jpeg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":34,
+                  "passing":59,
+                  "dribbling":59,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":56,
+               "number":17,
+               "name":"Ghaith Zaalouni",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/844473-1724503645.jpeg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":39,
+                  "passing":64,
+                  "dribbling":59,
+                  "defense":64,
+                  "physique":64
+               }
+            },
+            {
+               "id":57,
+               "number":24,
+               "name":"Houssem Hassen Romdhane",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":25,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/898076-1756231392.png?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":34,
+                  "passing":59,
+                  "dribbling":54,
+                  "defense":59,
+                  "physique":59
+               }
+            },
+            {
+               "id":58,
+               "number":35,
+               "name":"Mohamed Aziz Ghrissi",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€100k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1143691-1733948817.jpeg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":29,
+                  "passing":49,
+                  "dribbling":44,
+                  "defense":49,
+                  "physique":54
+               }
+            },
+            {
+               "id":59,
+               "number":13,
+               "name":"Charfeddine Ouni",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€350k",
+               "age":24,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":34,
+                  "passing":64,
+                  "dribbling":49,
+                  "defense":69,
+                  "physique":69
+               }
+            },
+            {
+               "id":60,
+               "number":10,
+               "name":"Mohamed Sadok Mahmoud",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€75k",
+               "age":19,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1266418-1756231610.png?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":29,
+                  "passing":54,
+                  "dribbling":44,
+                  "defense":59,
+                  "physique":54
+               }
+            },
+            {
+               "id":61,
+               "number":28,
+               "name":"Yahia Mtiri",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":44,
+                  "shooting":24,
+                  "passing":49,
+                  "dribbling":39,
+                  "defense":54,
+                  "physique":49
+               }
+            },
+            {
+               "id":62,
+               "number":11,
+               "name":"Moataz Zemzemi",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€550k",
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/422893-1544005041.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":49,
+                  "passing":69,
+                  "dribbling":64,
+                  "defense":54,
+                  "physique":64
+               }
+            },
+            {
+               "id":63,
+               "number":null,
+               "name":"Osama Elsharimi",
+               "position":"Central Midfield",
+               "nationality":"Libya",
+               "market_value":"€300k",
+               "age":24,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":39,
+                  "passing":59,
+                  "dribbling":54,
+                  "defense":49,
+                  "physique":59
+               }
+            },
+            {
+               "id":64,
+               "number":28,
+               "name":"Saidou Khan",
+               "position":"Central Midfield",
+               "nationality":[
+                  "The Gambia",
+                  "England"
+               ],
+               "market_value":"€100k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/724881-1756231799.png?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":34,
+                  "passing":54,
+                  "dribbling":49,
+                  "defense":44,
+                  "physique":54
+               }
+            },
+            {
+               "id":65,
+               "number":null,
+               "name":"Shawkan Mohammed",
+               "position":"Central Midfield",
+               "nationality":"Ghana",
+               "market_value":"€50k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/935577-1678628836.jpg?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":29,
+                  "passing":44,
+                  "dribbling":44,
+                  "defense":39,
+                  "physique":49
+               }
+            },
+            {
+               "id":66,
+               "number":8,
+               "name":"Ghaith Sghaier",
+               "position":"Attacking Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€450k",
+               "age":30,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/464747-1722751493.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":59,
+                  "passing":69,
+                  "dribbling":69,
+                  "defense":34,
+                  "physique":54
+               }
+            },
+            {
+               "id":67,
+               "number":7,
+               "name":"Hamza Khadhraoui",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€800k",
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/569961-1756232009.png?lm=1",
+               "attributes":{
+                  "pace":74,
+                  "shooting":64,
+                  "passing":59,
+                  "dribbling":74,
+                  "defense":29,
+                  "physique":59
+               }
+            },
+            {
+               "id":68,
+               "number":21,
+               "name":"Bilel Aït Malek",
+               "position":"Left Winger",
+               "nationality":[
+                  "Tunisia",
+                  "France"
+               ],
+               "market_value":"€800k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/332139-1620045631.jpg?lm=1",
+               "attributes":{
+                  "pace":74,
+                  "shooting":64,
+                  "passing":59,
+                  "dribbling":74,
+                  "defense":29,
+                  "physique":59
+               }
+            },
+            {
+               "id":69,
+               "number":27,
+               "name":"Fahad Al Mesmari",
+               "position":"Left Winger",
+               "nationality":"Libya",
+               "market_value":"€175k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":44,
+                  "passing":44,
+                  "dribbling":59,
+                  "defense":19,
+                  "physique":49
+               }
+            },
+            {
+               "id":70,
+               "number":19,
+               "name":"Bassem Srarfi",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€600k",
+               "age":28,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/401836-1735408193.jpeg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":59,
+                  "passing":54,
+                  "dribbling":69,
+                  "defense":24,
+                  "physique":54
+               }
+            },
+            {
+               "id":71,
+               "number":18,
+               "name":"Phillippe Kinzumbi",
+               "position":"Right Winger",
+               "nationality":"DR Congo",
+               "market_value":"€350k",
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/850855-1724519386.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":49,
+                  "passing":49,
+                  "dribbling":64,
+                  "defense":24,
+                  "physique":54
+               }
+            },
+            {
+               "id":72,
+               "number":9,
+               "name":"Firas Chaouat",
+               "position":"Centre-Forward",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/402087-1727551453.png?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":69,
+                  "passing":49,
+                  "dribbling":59,
+                  "defense":19,
+                  "physique":74
+               }
+            },
+            {
+               "id":73,
+               "number":29,
+               "name":"Mohamed Ali Omri",
+               "position":"Centre-Forward",
+               "nationality":"Tunisia",
+               "market_value":"€250k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":54,
+                  "passing":44,
+                  "dribbling":49,
+                  "defense":14,
+                  "physique":64
+               }
+            },
+            {
+               "id":74,
+               "number":null,
+               "name":"Hamza Mnasri",
+               "position":"Centre-Forward",
+               "nationality":"Tunisia",
+               "market_value":null,
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":44,
+                  "passing":39,
+                  "dribbling":44,
+                  "defense":14,
+                  "physique":54
+               }
+            }
+         ]
+      },
+      "etoile_sahel":{
+         "name":"Etoile Sportive du Sahel",
+         "logo":"https://icon2.cleanpng.com/20180703/fta/aaxuui8ko.webp",
+         "players":[
+            {
+               "id":75,
+               "number":32,
+               "name":"Sabri Ben Hessen",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":64,
+                  "positioning":69,
+                  "diving":64,
+                  "kicking":54,
+                  "reflexes":69
+               }
+            },
+            {
+               "id":76,
+               "number":16,
+               "name":"Raed Gazzeh",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":"€100k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":54,
+                  "positioning":49,
+                  "diving":59,
+                  "kicking":49,
+                  "reflexes":59
+               }
+            },
+            {
+               "id":77,
+               "number":null,
+               "name":"Mohamed Rayane Landolsi",
+               "position":"Goalkeeper",
+               "nationality":"Tunisia",
+               "market_value":null,
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "handling":44,
+                  "positioning":44,
+                  "diving":49,
+                  "kicking":39,
+                  "reflexes":54
+               }
+            },
+            {
+               "id":78,
+               "number":4,
+               "name":"Chérif Camara",
+               "position":"Centre-Back",
+               "nationality":"Guinea",
+               "market_value":"€450k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":19,
+                  "passing":34,
+                  "dribbling":29,
+                  "defense":69,
+                  "physique":64
+               }
+            },
+            {
+               "id":79,
+               "number":3,
+               "name":"Ghofrane Naouali",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":34,
+                  "shooting":14,
+                  "passing":39,
+                  "dribbling":24,
+                  "defense":74,
+                  "physique":69
+               }
+            },
+            {
+               "id":80,
+               "number":5,
+               "name":"Nassim Hnid",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":28,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/415679-1688466146.jpg?lm=1",
+               "attributes":{
+                  "pace":29,
+                  "shooting":14,
+                  "passing":44,
+                  "dribbling":24,
+                  "defense":74,
+                  "physique":74
+               }
+            },
+            {
+               "id":81,
+               "number":33,
+               "name":"Houssem Dagdoug",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":27,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/487195-1697736418.jpg?lm=1",
+               "attributes":{
+                  "pace":34,
+                  "shooting":19,
+                  "passing":39,
+                  "dribbling":29,
+                  "defense":69,
+                  "physique":64
+               }
+            },
+            {
+               "id":82,
+               "number":15,
+               "name":"Zied Boughattas",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€100k",
+               "age":34,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/153126-1580807965.jpg?lm=1",
+               "attributes":{
+                  "pace":24,
+                  "shooting":14,
+                  "passing":49,
+                  "dribbling":19,
+                  "defense":79,
+                  "physique":59
+               }
+            },
+            {
+               "id":83,
+               "number":2,
+               "name":"Mohamed Hassine",
+               "position":"Centre-Back",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":9,
+                  "passing":29,
+                  "dribbling":24,
+                  "defense":49,
+                  "physique":44
+               }
+            },
+            {
+               "id":84,
+               "number":21,
+               "name":"Najeh Ferjani",
+               "position":"Left-Back",
+               "nationality":"Tunisia",
+               "market_value":"€250k",
+               "age":25,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":24,
+                  "passing":44,
+                  "dribbling":39,
+                  "defense":54,
+                  "physique":49
+               }
+            },
+            {
+               "id":85,
+               "number":26,
+               "name":"Salaheddine Ghedamsi",
+               "position":"Right-Back",
+               "nationality":"Tunisia",
+               "market_value":"€450k",
+               "age":27,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/664571-1714930069.jpg?lm=1",
+               "attributes":{
+                  "pace":59,
+                  "shooting":29,
+                  "passing":49,
+                  "dribbling":39,
+                  "defense":59,
+                  "physique":54
+               }
+            },
+            {
+               "id":86,
+               "number":6,
+               "name":"Cedrik Gbo",
+               "position":"Defensive Midfield",
+               "nationality":"Cote d'Ivoire",
+               "market_value":"€400k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":44,
+                  "shooting":29,
+                  "passing":54,
+                  "dribbling":39,
+                  "defense":64,
+                  "physique":59
+               }
+            },
+            {
+               "id":87,
+               "number":12,
+               "name":"Mokhles Chouchane",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€150k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":24,
+                  "passing":49,
+                  "dribbling":34,
+                  "defense":59,
+                  "physique":49
+               }
+            },
+            {
+               "id":88,
+               "number":29,
+               "name":"Mohamed Amine Ben Amor",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":33,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/334991-1516960260.jpg?lm=1",
+               "attributes":{
+                  "pace":29,
+                  "shooting":19,
+                  "passing":59,
+                  "dribbling":29,
+                  "defense":64,
+                  "physique":44
+               }
+            },
+            {
+               "id":89,
+               "number":20,
+               "name":"Malek Baayou",
+               "position":"Defensive Midfield",
+               "nationality":"Tunisia",
+               "market_value":null,
+               "age":26,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/555911-1646317495.jpg?lm=1",
+               "attributes":{
+                  "pace":34,
+                  "shooting":24,
+                  "passing":44,
+                  "dribbling":34,
+                  "defense":54,
+                  "physique":49
+               }
+            },
+            {
+               "id":90,
+               "number":22,
+               "name":"Salah Barhoumi",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€100k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":44,
+                  "shooting":34,
+                  "passing":49,
+                  "dribbling":44,
+                  "defense":34,
+                  "physique":39
+               }
+            },
+            {
+               "id":91,
+               "number":14,
+               "name":"Adem Ouertani",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€75k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":29,
+                  "passing":44,
+                  "dribbling":39,
+                  "defense":29,
+                  "physique":39
+               }
+            },
+            {
+               "id":92,
+               "number":23,
+               "name":"Mohamed Amine Jebali",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€50k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":34,
+                  "shooting":29,
+                  "passing":39,
+                  "dribbling":34,
+                  "defense":24,
+                  "physique":34
+               }
+            },
+            {
+               "id":93,
+               "number":8,
+               "name":"Mohamed Aziz Jebali",
+               "position":"Central Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":34,
+                  "shooting":24,
+                  "passing":39,
+                  "dribbling":29,
+                  "defense":29,
+                  "physique":29
+               }
+            },
+            {
+               "id":94,
+               "number":31,
+               "name":"Auwal Ibrahim",
+               "position":"Central Midfield",
+               "nationality":"Nigeria",
+               "market_value":null,
+               "age":19,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1242265-1746123539.jpeg?lm=1",
+               "attributes":{
+                  "pace":49,
+                  "shooting":29,
+                  "passing":39,
+                  "dribbling":44,
+                  "defense":24,
+                  "physique":34
+               }
+            },
+            {
+               "id":95,
+               "number":25,
+               "name":"Fedi Ben Choug",
+               "position":"Attacking Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€400k",
+               "age":30,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/415482-1711909649.png?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":49,
+                  "passing":64,
+                  "dribbling":59,
+                  "defense":19,
+                  "physique":44
+               }
+            },
+            {
+               "id":96,
+               "number":18,
+               "name":"Wassim Chihi",
+               "position":"Attacking Midfield",
+               "nationality":"Tunisia",
+               "market_value":"€200k",
+               "age":23,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":44,
+                  "shooting":39,
+                  "passing":54,
+                  "dribbling":54,
+                  "defense":14,
+                  "physique":34
+               }
+            },
+            {
+               "id":97,
+               "number":null,
+               "name":"Noor Aldeen Al-Qulaib",
+               "position":"Attacking Midfield",
+               "nationality":"Libya",
+               "market_value":"€75k",
+               "age":24,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":39,
+                  "shooting":34,
+                  "passing":44,
+                  "dribbling":49,
+                  "defense":14,
+                  "physique":34
+               }
+            },
+            {
+               "id":98,
+               "number":27,
+               "name":"Gideon Uche Goodlad",
+               "position":"Attacking Midfield",
+               "nationality":"Nigeria",
+               "market_value":"€75k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1283034-1725600779.png?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":40,
+                  "passing":45,
+                  "dribbling":59,
+                  "defense":15,
+                  "physique":35
+               }
+            },
+            {
+               "id":99,
+               "number":30,
+               "name":"Mohamed Rayane Anane",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€150k",
+               "age":19,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1373350-1746123954.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":35,
+                  "passing":40,
+                  "dribbling":59,
+                  "defense":15,
+                  "physique":30
+               }
+            },
+            {
+               "id":100,
+               "number":null,
+               "name":"Maher Ben Seghaier",
+               "position":"Left Winger",
+               "nationality":"Tunisia",
+               "market_value":"€25k",
+               "age":29,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":45,
+                  "shooting":30,
+                  "passing":35,
+                  "dribbling":45,
+                  "defense":20,
+                  "physique":40
+               }
+            },
+            {
+               "id":101,
+               "number":31,
+               "name":"Oumar Bah",
+               "position":"Left Winger",
+               "nationality":"Mali",
+               "market_value":null,
+               "age":null,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":30,
+                  "passing":35,
+                  "dribbling":50,
+                  "defense":15,
+                  "physique":35
+               }
+            },
+            {
+               "id":102,
+               "number":28,
+               "name":"Raki Aouani",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€750k",
+               "age":20,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1010647-1706310016.jpg?lm=1",
+               "attributes":{
+                  "pace":69,
+                  "shooting":45,
+                  "passing":45,
+                  "dribbling":69,
+                  "defense":15,
+                  "physique":40
+               }
+            },
+            {
+               "id":103,
+               "number":18,
+               "name":"Cristo",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€650k",
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/950684-1675882270.jpeg?lm=1",
+               "attributes":{
+                  "pace":64,
+                  "shooting":40,
+                  "passing":45,
+                  "dribbling":64,
+                  "defense":15,
+                  "physique":40
+               }
+            },
+            {
+               "id":104,
+               "number":21,
+               "name":"Nizar Smichi",
+               "position":"Right Winger",
+               "nationality":"Tunisia",
+               "market_value":"€300k",
+               "age":25,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":35,
+                  "passing":40,
+                  "dribbling":50,
+                  "defense":20,
+                  "physique":40
+               }
+            },
+            {
+               "id":105,
+               "number":10,
+               "name":"Mohamed Kanté",
+               "position":"Centre-Forward",
+               "nationality":"Guinea",
+               "market_value":"€200k",
+               "age":21,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/1016332-1727551241.png?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":54,
+                  "passing":35,
+                  "dribbling":45,
+                  "defense":15,
+                  "physique":54
+               }
+            },
+            {
+               "id":106,
+               "number":11,
+               "name":"Moussa Senghor",
+               "position":"Centre-Forward",
+               "nationality":"Senegal",
+               "market_value":null,
+               "age":19,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":54,
+                  "shooting":45,
+                  "passing":30,
+                  "dribbling":40,
+                  "defense":10,
+                  "physique":45
+               }
+            },
+            {
+               "id":107,
+               "number":null,
+               "name":"Alassane Diao",
+               "position":"Centre-Forward",
+               "nationality":"Senegal",
+               "market_value":null,
+               "age":22,
+               "image_url":"https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+               "attributes":{
+                  "pace":50,
+                  "shooting":50,
+                  "passing":35,
+                  "dribbling":40,
+                  "defense":15,
+                  "physique":59
+               }
+            }
+         ]
+      },
+     "us_monastir": {
+      "name": "US Monastir",
+      "logo": "https://tmssl.akamaized.net//images/wappen/homepageWappen70x70/9890.png?lm=1563116766",
+      "players": [
+        {
+          "id": 108,
+          "number": 22,
+          "name": "Abdessalem Hallaoui",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 65,
+            "positioning": 68,
+            "diving": 62,
+            "kicking": 58,
+            "reflexes": 67
+          }
+        },
+        {
+          "id": 109,
+          "number": 24,
+          "name": "Ahmed Slimane",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 68,
+            "positioning": 71,
+            "diving": 65,
+            "kicking": 62,
+            "reflexes": 70
+          }
+        },
+        {
+          "id": 110,
+          "number": 1,
+          "name": "Rayen Besbes",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 55,
+            "positioning": 58,
+            "diving": 60,
+            "kicking": 52,
+            "reflexes": 62
+          }
+        },
+        {
+          "id": 111,
+          "number": 5,
+          "name": "Naude Zeguei",
+          "position": "Centre-Back",
+          "nationality": "Cote d'Ivoire",
+          "market_value": "€650k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 78,
+            "heading": 82,
+            "physicality": 80,
+            "passing": 71,
+            "pace": 65
+          }
+        },
+        {
+          "id": 112,
+          "number": 35,
+          "name": "Malek Miladi",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€350k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/376085-1722162474.png?lm=1",
+          "attributes": {
+            "defending": 74,
+            "heading": 78,
+            "physicality": 76,
+            "passing": 68,
+            "pace": 62
+          }
+        },
+        {
+          "id": 113,
+          "number": 25,
+          "name": "Raed Chikhaoui",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€125k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 68,
+            "heading": 72,
+            "physicality": 70,
+            "passing": 65,
+            "pace": 64
+          }
+        },
+        {
+          "id": 114,
+          "number": 26,
+          "name": "Nour Zamen Zammouri",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 66,
+            "heading": 70,
+            "physicality": 72,
+            "passing": 63,
+            "pace": 61
+          }
+        },
+        {
+          "id": 115,
+          "number": 0,
+          "name": "Seif Sabeur",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€150k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 70,
+            "crossing": 68,
+            "pace": 74,
+            "passing": 66,
+            "physicality": 71
+          }
+        },
+        {
+          "id": 116,
+          "number": 4,
+          "name": "Dhia Maatougui",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€150k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 69,
+            "crossing": 72,
+            "pace": 76,
+            "passing": 68,
+            "physicality": 69
+          }
+        },
+        {
+          "id": 117,
+          "number": 3,
+          "name": "Youssef Herch",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€75k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 63,
+            "crossing": 65,
+            "pace": 78,
+            "passing": 64,
+            "physicality": 62
+          }
+        },
+        {
+          "id": 118,
+          "number": 2,
+          "name": "Mahmoud Ghorbel",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€550k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 76,
+            "crossing": 74,
+            "pace": 78,
+            "passing": 72,
+            "physicality": 70
+          }
+        },
+        {
+          "id": 119,
+          "number": 13,
+          "name": "Rayane Azzouz",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 65,
+            "crossing": 63,
+            "pace": 71,
+            "passing": 64,
+            "physicality": 66
+          }
+        },
+        {
+          "id": 120,
+          "number": 0,
+          "name": "Abderrahman Bouzganda",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "crossing": 60,
+            "pace": 68,
+            "passing": 59,
+            "physicality": 61
+          }
+        },
+        {
+          "id": 121,
+          "number": 15,
+          "name": "Moez Haj Ali",
+          "position": "Defensive Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€700k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 82,
+            "passing": 75,
+            "physicality": 78,
+            "tackling": 80,
+            "vision": 71
+          }
+        },
+        {
+          "id": 122,
+          "number": 6,
+          "name": "Ousmane Diané",
+          "position": "Defensive Midfield",
+          "nationality": "Guinea",
+          "market_value": "€550k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 76,
+            "passing": 72,
+            "physicality": 82,
+            "tackling": 78,
+            "vision": 68
+          }
+        },
+        {
+          "id": 123,
+          "number": 0,
+          "name": "Mustapha Samb",
+          "position": "Defensive Midfield",
+          "nationality": "Senegal",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 62,
+            "passing": 58,
+            "physicality": 70,
+            "tackling": 65,
+            "vision": 55
+          }
+        },
+        {
+          "id": 124,
+          "number": 16,
+          "name": "Moisés Amor",
+          "position": "Defensive Midfield",
+          "nationality": "Angola",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 70,
+            "passing": 68,
+            "physicality": 74,
+            "tackling": 72,
+            "vision": 64
+          }
+        },
+        {
+          "id": 125,
+          "number": 17,
+          "name": "Chérif Bodian",
+          "position": "Central Midfield",
+          "nationality": "Senegal",
+          "market_value": "€300k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "passing": 74,
+            "vision": 76,
+            "dribbling": 70,
+            "shooting": 68,
+            "pace": 65
+          }
+        },
+        {
+          "id": 126,
+          "number": 0,
+          "name": "Salah Barhoumi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "passing": 68,
+            "vision": 70,
+            "dribbling": 72,
+            "shooting": 64,
+            "pace": 67
+          }
+        },
+        {
+          "id": 127,
+          "number": 7,
+          "name": "Yassine Dridi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/947036-1724507180.png?lm=1",
+          "attributes": {
+            "passing": 62,
+            "vision": 64,
+            "dribbling": 66,
+            "shooting": 58,
+            "pace": 63
+          }
+        },
+        {
+          "id": 128,
+          "number": 12,
+          "name": "Alpha Sidibé",
+          "position": "Central Midfield",
+          "nationality": "Cote d'Ivoire",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "passing": 66,
+            "vision": 68,
+            "dribbling": 70,
+            "shooting": 62,
+            "pace": 69
+          }
+        },
+        {
+          "id": 129,
+          "number": 8,
+          "name": "Ayoub Chaabane",
+          "position": "Left Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€200k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "pace": 75,
+            "crossing": 72,
+            "dribbling": 74,
+            "passing": 70,
+            "shooting": 66
+          }
+        },
+        {
+          "id": 130,
+          "number": 19,
+          "name": "Mehdi Ganouni",
+          "position": "Attacking Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€450k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "creativity": 78,
+            "passing": 76,
+            "dribbling": 80,
+            "shooting": 72,
+            "pace": 74
+          }
+        },
+        {
+          "id": 131,
+          "number": 27,
+          "name": "Nassim Douihech",
+          "position": "Attacking Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€200k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "creativity": 72,
+            "passing": 70,
+            "dribbling": 74,
+            "shooting": 68,
+            "pace": 71
+          }
+        },
+        {
+          "id": 132,
+          "number": 28,
+          "name": "Adnene Yaakoubi",
+          "position": "Attacking Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "creativity": 68,
+            "passing": 66,
+            "dribbling": 70,
+            "shooting": 64,
+            "pace": 67
+          }
+        },
+        {
+          "id": 133,
+          "number": 10,
+          "name": "Aymen Harzi",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€700k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "pace": 82,
+            "dribbling": 84,
+            "crossing": 78,
+            "shooting": 76,
+            "finishing": 74
+          }
+        },
+        {
+          "id": 134,
+          "number": 47,
+          "name": "Aziz Abid",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€275k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/1008460-1674215415.png?lm=1",
+          "attributes": {
+            "pace": 76,
+            "dribbling": 78,
+            "crossing": 72,
+            "shooting": 68,
+            "finishing": 66
+          }
+        },
+        {
+          "id": 135,
+          "number": 28,
+          "name": "Yassine Amri",
+          "position": "Right Winger",
+          "nationality": "Tunisia",
+          "market_value": "€325k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "pace": 78,
+            "dribbling": 76,
+            "crossing": 74,
+            "shooting": 70,
+            "finishing": 68
+          }
+        },
+        {
+          "id": 136,
+          "number": 33,
+          "name": "Malcolm Elhmidi",
+          "position": "Right Winger",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "pace": 72,
+            "dribbling": 68,
+            "crossing": 66,
+            "shooting": 62,
+            "finishing": 60
+          }
+        },
+        {
+          "id": 137,
+          "number": 9,
+          "name": "Youssef Abdelli",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": "€400k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/700702-1632991511.png?lm=1",
+          "attributes": {
+            "finishing": 78,
+            "shooting": 76,
+            "heading": 74,
+            "physicality": 72,
+            "positioning": 75
+          }
+        },
+        {
+          "id": 138,
+          "number": 17,
+          "name": "Ibrahim Souissi",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "finishing": 66,
+            "shooting": 64,
+            "heading": 68,
+            "physicality": 70,
+            "positioning": 65
+          }
+        },
+        {
+          "id": 139,
+          "number": 18,
+          "name": "Anas Bouatay",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": "€75k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "finishing": 64,
+            "shooting": 62,
+            "heading": 66,
+            "physicality": 68,
+            "positioning": 63
+          }
+        },
+        {
+          "id": 140,
+          "number": 19,
+          "name": "Esson Victor Musa",
+          "position": "Centre-Forward",
+          "nationality": "Nigeria",
+          "market_value": "€75k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "finishing": 65,
+            "shooting": 63,
+            "heading": 67,
+            "physicality": 72,
+            "positioning": 64
+          }
+        },
+        {
+          "id": 141,
+          "number": 29,
+          "name": "Ibrahim Gadiaga",
+          "position": "Striker",
+          "nationality": "Mali",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "finishing": 60,
+            "shooting": 58,
+            "heading": 62,
+            "physicality": 68,
+            "positioning": 59
+          }
+        }
+      ]
+    },
+     "css": {
+      "name": "Club Sportif Sfaxien",
+      "logo": "https://tmssl.akamaized.net/images/wappen/head/581.png",
+      "players": [
+        {
+          "id": 142,
+          "number": 30,
+          "name": "Aymen Dahmen",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€650k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/569433-1668422483.jpg?lm=1",
+          "attributes": {
+            "handling": 82,
+            "positioning": 78,
+            "diving": 84,
+            "kicking": 72,
+            "reflexes": 86
+          }
+        },
+        {
+          "id": 143,
+          "number": 1,
+          "name": "Mohamed Hedi Gaaloul",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 68,
+            "positioning": 72,
+            "diving": 65,
+            "kicking": 58,
+            "reflexes": 70
+          }
+        },
+        {
+          "id": 144,
+          "number": 31,
+          "name": "Mohamed Ali Jamia",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 62,
+            "positioning": 58,
+            "diving": 60,
+            "kicking": 55,
+            "reflexes": 65
+          }
+        },
+        {
+          "id": 145,
+          "number": 24,
+          "name": "Hamza Mathlouthi",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€500k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/169399-1523616823.jpg?lm=1",
+          "attributes": {
+            "defending": 78,
+            "physicality": 82,
+            "passing": 68,
+            "pace": 65,
+            "shooting": 45,
+            "dribbling": 55
+          }
+        },
+        {
+          "id": 146,
+          "number": 15,
+          "name": "Kévin Mondeko",
+          "position": "Centre-Back",
+          "nationality": "DR Congo",
+          "market_value": "€400k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 74,
+            "physicality": 79,
+            "passing": 65,
+            "pace": 68,
+            "shooting": 42,
+            "dribbling": 52
+          }
+        },
+        {
+          "id": 147,
+          "number": 26,
+          "name": "Chaouki Ben Khader",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€200k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 69,
+            "physicality": 72,
+            "passing": 62,
+            "pace": 70,
+            "shooting": 38,
+            "dribbling": 48
+          }
+        },
+        {
+          "id": 148,
+          "number": 4,
+          "name": "Mohamed Amine Ben Ali",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 62,
+            "physicality": 68,
+            "passing": 58,
+            "pace": 72,
+            "shooting": 35,
+            "dribbling": 45
+          }
+        },
+        {
+          "id": 149,
+          "number": 14,
+          "name": "Youssef Habchia",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 65,
+            "passing": 55,
+            "pace": 68,
+            "shooting": 32,
+            "dribbling": 42
+          }
+        },
+        {
+          "id": 150,
+          "number": 5,
+          "name": "Abdessalem Akid",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/1258330-1743720461.png?lm=1",
+          "attributes": {
+            "defending": 55,
+            "physicality": 62,
+            "passing": 52,
+            "pace": 75,
+            "shooting": 30,
+            "dribbling": 48
+          }
+        },
+        {
+          "id": 151,
+          "number": 37,
+          "name": "Ayoub Froukh",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 65,
+            "passing": 52,
+            "pace": 68,
+            "shooting": 32,
+            "dribbling": 45
+          }
+        },
+        {
+          "id": 152,
+          "number": 21,
+          "name": "Hichem Baccar",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€700k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 72,
+            "physicality": 68,
+            "passing": 74,
+            "pace": 82,
+            "shooting": 58,
+            "dribbling": 75
+          }
+        },
+        {
+          "id": 153,
+          "number": 10,
+          "name": "Ali Maâloul",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€200k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/133042-1668422573.jpg?lm=1",
+          "attributes": {
+            "defending": 68,
+            "physicality": 65,
+            "passing": 72,
+            "pace": 62,
+            "shooting": 55,
+            "dribbling": 70
+          }
+        },
+        {
+          "id": 154,
+          "number": 13,
+          "name": "Rayen Derbeli",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€450k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 69,
+            "physicality": 70,
+            "passing": 68,
+            "pace": 78,
+            "shooting": 52,
+            "dribbling": 72
+          }
+        },
+        {
+          "id": 155,
+          "number": 17,
+          "name": "Mohamed Salah Mhadhebi",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€300k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/301119-1641374826.png?lm=1",
+          "attributes": {
+            "defending": 66,
+            "physicality": 68,
+            "passing": 65,
+            "pace": 72,
+            "shooting": 48,
+            "dribbling": 65
+          }
+        },
+        {
+          "id": 156,
+          "number": 3,
+          "name": "Ahmed Ajjal",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 65,
+            "passing": 55,
+            "pace": 72,
+            "shooting": 42,
+            "dribbling": 58
+          }
+        },
+        {
+          "id": 157,
+          "number": 6,
+          "name": "Ammar Taifour",
+          "position": "Defensive Midfield",
+          "nationality": "Sudan",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 74,
+            "physicality": 72,
+            "passing": 68,
+            "pace": 62,
+            "shooting": 52,
+            "dribbling": 58
+          }
+        },
+        {
+          "id": 158,
+          "number": 32,
+          "name": "Hasamadou Ouédraogo",
+          "position": "Defensive Midfield",
+          "nationality": "Burkina Faso",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 65,
+            "physicality": 70,
+            "passing": 62,
+            "pace": 68,
+            "shooting": 45,
+            "dribbling": 55
+          }
+        },
+        {
+          "id": 159,
+          "number": 18,
+          "name": "Firas Sekkouhi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€300k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 65,
+            "passing": 72,
+            "pace": 68,
+            "shooting": 62,
+            "dribbling": 70
+          }
+        },
+        {
+          "id": 160,
+          "number": null,
+          "name": "Jasser Maaroufi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€75k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 52,
+            "physicality": 62,
+            "passing": 68,
+            "pace": 65,
+            "shooting": 58,
+            "dribbling": 65
+          }
+        },
+        {
+          "id": 161,
+          "number": 33,
+          "name": "Mohamed Trabelsi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 48,
+            "physicality": 58,
+            "passing": 62,
+            "pace": 68,
+            "shooting": 52,
+            "dribbling": 62
+          }
+        },
+        {
+          "id": 162,
+          "number": 8,
+          "name": "Rayen Chaaben",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 45,
+            "physicality": 55,
+            "passing": 68,
+            "pace": 72,
+            "shooting": 55,
+            "dribbling": 70
+          }
+        },
+        {
+          "id": 163,
+          "number": 22,
+          "name": "Mohamed Absi",
+          "position": "Attacking Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€300k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 42,
+            "physicality": 58,
+            "passing": 75,
+            "pace": 72,
+            "shooting": 68,
+            "dribbling": 78
+          }
+        },
+        {
+          "id": 164,
+          "number": 12,
+          "name": "Travis Mutyaba",
+          "position": "Attacking Midfield",
+          "nationality": "Uganda",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 38,
+            "physicality": 55,
+            "passing": 68,
+            "pace": 75,
+            "shooting": 62,
+            "dribbling": 72
+          }
+        },
+        {
+          "id": 165,
+          "number": 20,
+          "name": "Youssef Becha",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€450k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 35,
+            "physicality": 58,
+            "passing": 68,
+            "pace": 82,
+            "shooting": 65,
+            "dribbling": 80
+          }
+        },
+        {
+          "id": 166,
+          "number": null,
+          "name": "Ameur Jouini",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 32,
+            "physicality": 55,
+            "passing": 62,
+            "pace": 78,
+            "shooting": 58,
+            "dribbling": 72
+          }
+        },
+        {
+          "id": 167,
+          "number": 7,
+          "name": "Willy Onana",
+          "position": "Left Winger",
+          "nationality": "Cameroon",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 32,
+            "physicality": 62,
+            "passing": 65,
+            "pace": 78,
+            "shooting": 60,
+            "dribbling": 75
+          }
+        },
+        {
+          "id": 168,
+          "number": 19,
+          "name": "Nour Karoui",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "-",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 30,
+            "physicality": 52,
+            "passing": 62,
+            "pace": 80,
+            "shooting": 55,
+            "dribbling": 72
+          }
+        },
+        {
+          "id": 169,
+          "number": 11,
+          "name": "Iyed Belwafi",
+          "position": "Right Winger",
+          "nationality": "Tunisia",
+          "market_value": "€300k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 35,
+            "physicality": 58,
+            "passing": 65,
+            "pace": 78,
+            "shooting": 62,
+            "dribbling": 75
+          }
+        },
+        {
+          "id": 170,
+          "number": 23,
+          "name": "Mohamed Amine Aidi",
+          "position": "Right Winger",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 32,
+            "physicality": 52,
+            "passing": 58,
+            "pace": 78,
+            "shooting": 55,
+            "dribbling": 70
+          }
+        },
+        {
+          "id": 171,
+          "number": 9,
+          "name": "Omar Ben Ali",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": "€400k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/1244036-1746124052.jpeg?lm=1",
+          "attributes": {
+            "defending": 28,
+            "physicality": 72,
+            "passing": 62,
+            "pace": 75,
+            "shooting": 78,
+            "dribbling": 70
+          }
+        },
+        {
+          "id": 172,
+          "number": 37,
+          "name": "Emmanuel Ogbole",
+          "position": "Centre-Forward",
+          "nationality": "Nigeria",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/772510-1753033914.jpg?lm=1",
+          "attributes": {
+            "defending": 25,
+            "physicality": 75,
+            "passing": 58,
+            "pace": 72,
+            "shooting": 70,
+            "dribbling": 65
+          }
+        }
+      ]
+    },
+     "Stade_Tunisien": {
+      "name": "Stade Tunisien",
+      "logo": "https://tmssl.akamaized.net//images/wappen/homepageWappen70x70/4812.png?lm=1418329667",
+      "players": [
+        {
+          "id": 173,
+          "number": 22,
+          "name": "Noureddine Farhati",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€500k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/679463-1723486424.jpeg?lm=1",
+          "attributes": {
+            "handling": 72,
+            "positioning": 68,
+            "diving": 74,
+            "kicking": 65,
+            "reflexes": 76
+          }
+        },
+        {
+          "id": 174,
+          "number": 16,
+          "name": "Atef Dkhili",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€100k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/s_133067_819_2012_1.jpg?lm=1",
+          "attributes": {
+            "handling": 65,
+            "positioning": 71,
+            "diving": 63,
+            "kicking": 58,
+            "reflexes": 68
+          }
+        },
+        {
+          "id": 175,
+          "number": 1,
+          "name": "Mehdi Ben Mrad",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 58,
+            "positioning": 62,
+            "diving": 56,
+            "kicking": 53,
+            "reflexes": 61
+          }
+        },
+        {
+          "id": 176,
+          "number": null,
+          "name": "Ahmed Braiek",
+          "position": "Goalkeeper",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "handling": 52,
+            "positioning": 55,
+            "diving": 50,
+            "kicking": 48,
+            "reflexes": 54
+          }
+        },
+        {
+          "id": 177,
+          "number": null,
+          "name": "Chamseddine Jrid",
+          "position": "Defender",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 52,
+            "physicality": 55,
+            "pace": 48,
+            "passing": 50,
+            "dribbling": 46
+          }
+        },
+        {
+          "id": 178,
+          "number": 34,
+          "name": "Marouane Sahraoui",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€550k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/295428-1510329886.jpg?lm=1",
+          "attributes": {
+            "defending": 74,
+            "physicality": 76,
+            "pace": 65,
+            "passing": 68,
+            "dribbling": 58
+          }
+        },
+        {
+          "id": 179,
+          "number": 25,
+          "name": "Skander Sghaier",
+          "position": "Centre-Back",
+          "nationality": "Tunisia",
+          "market_value": "€350k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 68,
+            "physicality": 71,
+            "pace": 62,
+            "passing": 64,
+            "dribbling": 55
+          }
+        },
+        {
+          "id": 180,
+          "number": null,
+          "name": "Aziz Saihi",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€175k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 62,
+            "physicality": 65,
+            "pace": 68,
+            "passing": 64,
+            "dribbling": 61
+          }
+        },
+        {
+          "id": 181,
+          "number": 31,
+          "name": "Yassine Mizouni",
+          "position": "Left-Back",
+          "nationality": "Tunisia",
+          "market_value": "€150k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 60,
+            "physicality": 63,
+            "pace": 66,
+            "passing": 62,
+            "dribbling": 59
+          }
+        },
+        {
+          "id": 182,
+          "number": 27,
+          "name": "Hedi Khalfa",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€400k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/348146-1619704501.jpg?lm=1",
+          "attributes": {
+            "defending": 70,
+            "physicality": 68,
+            "pace": 66,
+            "passing": 67,
+            "dribbling": 63
+          }
+        },
+        {
+          "id": 183,
+          "number": 7,
+          "name": "Wael Ouerghemmi",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€175k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 62,
+            "physicality": 64,
+            "pace": 69,
+            "passing": 63,
+            "dribbling": 60
+          }
+        },
+        {
+          "id": 184,
+          "number": 2,
+          "name": "Mohamed Iyadh Riahi",
+          "position": "Right-Back",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 56,
+            "physicality": 58,
+            "pace": 64,
+            "passing": 57,
+            "dribbling": 55
+          }
+        },
+        {
+          "id": 185,
+          "number": 21,
+          "name": "Yusuf Touré",
+          "position": "Defensive Midfield",
+          "nationality": "Cote d'Ivoire",
+          "market_value": "€450k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/809138-1635514306.png?lm=1",
+          "attributes": {
+            "defending": 73,
+            "physicality": 75,
+            "pace": 65,
+            "passing": 71,
+            "dribbling": 64
+          }
+        },
+        {
+          "id": 186,
+          "number": 20,
+          "name": "Mohamed Smaali",
+          "position": "Defensive Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€250k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 65,
+            "physicality": 68,
+            "pace": 62,
+            "passing": 67,
+            "dribbling": 60
+          }
+        },
+        {
+          "id": 187,
+          "number": null,
+          "name": "Mahamat Thiam",
+          "position": "Defensive Midfield",
+          "nationality": "Chad",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/926334-1713418583.png?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 62,
+            "pace": 59,
+            "passing": 61,
+            "dribbling": 56
+          }
+        },
+        {
+          "id": 188,
+          "number": 24,
+          "name": "Obaid Chabbi",
+          "position": "Midfielder",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 54,
+            "physicality": 56,
+            "pace": 58,
+            "passing": 60,
+            "dribbling": 57
+          }
+        },
+        {
+          "id": 189,
+          "number": null,
+          "name": "Hazem Khemiri",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 56,
+            "physicality": 59,
+            "pace": 61,
+            "passing": 63,
+            "dribbling": 58
+          }
+        },
+        {
+          "id": 190,
+          "number": 32,
+          "name": "Rafaeddine Riahi",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 56,
+            "physicality": 58,
+            "pace": 62,
+            "passing": 64,
+            "dribbling": 59
+          }
+        },
+        {
+          "id": 191,
+          "number": null,
+          "name": "Adem Nguili",
+          "position": "Central Midfield",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 52,
+            "physicality": 55,
+            "pace": 59,
+            "passing": 58,
+            "dribbling": 56
+          }
+        },
+        {
+          "id": 192,
+          "number": 4,
+          "name": "Amath Ndaw",
+          "position": "Attacking Midfield",
+          "nationality": "Senegal",
+          "market_value": "€500k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 58,
+            "physicality": 66,
+            "pace": 68,
+            "passing": 74,
+            "dribbling": 72
+          }
+        },
+        {
+          "id": 193,
+          "number": 21,
+          "name": "Elyes Jelassi",
+          "position": "Attacking Midfield",
+          "nationality": "Tunisia",
+          "market_value": "€350k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/292219-1686463562.jpg?lm=1",
+          "attributes": {
+            "defending": 56,
+            "physicality": 63,
+            "pace": 65,
+            "passing": 71,
+            "dribbling": 69
+          }
+        },
+        {
+          "id": 194,
+          "number": 17,
+          "name": "Abderrahman Hanchi",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€50k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 48,
+            "physicality": 58,
+            "pace": 66,
+            "passing": 60,
+            "dribbling": 63
+          }
+        },
+        {
+          "id": 195,
+          "number": 13,
+          "name": "Moncef Gharbi",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": "€25k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 44,
+            "physicality": 54,
+            "pace": 68,
+            "passing": 57,
+            "dribbling": 61
+          }
+        },
+        {
+          "id": 196,
+          "number": 11,
+          "name": "Firas Iffia",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 46,
+            "physicality": 59,
+            "pace": 65,
+            "passing": 58,
+            "dribbling": 62
+          }
+        },
+        {
+          "id": 197,
+          "number": 18,
+          "name": "Mohamed Amine Khemissi",
+          "position": "Left Winger",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 47,
+            "physicality": 60,
+            "pace": 66,
+            "passing": 59,
+            "dribbling": 63
+          }
+        },
+        {
+          "id": 198,
+          "number": null,
+          "name": "Youssef Saafi",
+          "position": "Right Winger",
+          "nationality": "Tunisia",
+          "market_value": "€400k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 52,
+            "physicality": 64,
+            "pace": 72,
+            "passing": 68,
+            "dribbling": 71
+          }
+        },
+        {
+          "id": 199,
+          "number": null,
+          "name": "Amine Haboubi",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": "€350k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/842934-1670363992.jpg?lm=1",
+          "attributes": {
+            "defending": 48,
+            "physicality": 68,
+            "pace": 66,
+            "passing": 62,
+            "dribbling": 64,
+            "shooting": 71,
+            "finishing": 69
+          }
+        },
+        {
+          "id": 200,
+          "number": null,
+          "name": "Amadou N'Diaye",
+          "position": "Centre-Forward",
+          "nationality": "Senegal",
+          "market_value": "€275k",
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/568695-1596839051.jpg?lm=1",
+          "attributes": {
+            "defending": 46,
+            "physicality": 71,
+            "pace": 64,
+            "passing": 60,
+            "dribbling": 62,
+            "shooting": 68,
+            "finishing": 66
+          }
+        },
+        {
+          "id": 201,
+          "number": 28,
+          "name": "Ahmed Beji",
+          "position": "Striker",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 42,
+            "physicality": 65,
+            "pace": 62,
+            "passing": 56,
+            "dribbling": 58,
+            "shooting": 64,
+            "finishing": 62
+          }
+        },
+        {
+          "id": 202,
+          "number": null,
+          "name": "Riad Ouafi",
+          "position": "Striker",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 40,
+            "physicality": 58,
+            "pace": 64,
+            "passing": 54,
+            "dribbling": 59,
+            "shooting": 60,
+            "finishing": 58
+          }
+        },
+        {
+          "id": 203,
+          "number": null,
+          "name": "Mazen Ben Daoud",
+          "position": "Striker",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 41,
+            "physicality": 60,
+            "pace": 63,
+            "passing": 55,
+            "dribbling": 58,
+            "shooting": 61,
+            "finishing": 59
+          }
+        },
+        {
+          "id": 204,
+          "number": 9,
+          "name": "Godswill Emmanuel Odinakachi",
+          "position": "Centre-Forward",
+          "nationality": "Nigeria",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 44,
+            "physicality": 66,
+            "pace": 65,
+            "passing": 57,
+            "dribbling": 60,
+            "shooting": 63,
+            "finishing": 61
+          }
+        },
+        {
+          "id": 205,
+          "number": 26,
+          "name": "Amir Jaouadi",
+          "position": "Centre-Forward",
+          "nationality": "Tunisia",
+          "market_value": null,
+          "image_url": "https://img.a.transfermarkt.technology/portrait/medium/default.jpg?lm=1",
+          "attributes": {
+            "defending": 43,
+            "physicality": 62,
+            "pace": 63,
+            "passing": 56,
+            "dribbling": 59,
+            "shooting": 62,
+            "finishing": 60
+          }
+        }
+      ]
+    }
+  }
+}

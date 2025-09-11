@@ -1,0 +1,18 @@
+{
+  "ligue2": {
+    "kairouanaise": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/59632/image",
+    "kasserine": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/148872/image",
+    "oceano_club_de_kerkennah": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/300900/image",
+    "railways": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/148862/image",
+    "ps_sakiet_eddaier": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/239318/image",
+    "bs_bouhajla": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/338106/image",
+    "cs_redeyef": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/274464/image",
+    "as_jelma": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/239315/image",
+    "sidi_bouzid": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/205742/image",
+    "chebba": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/212689/image",
+    "gabesien": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/83995/image",
+    "as_agareb": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/338101/image",
+    "es_jerba_midoun": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/301587/image",
+    "rogba_tataouine": "https://images.weserv.nl/?url=img.sofascore.com/api/v1/team/338104/image"
+  }
+}
