@@ -30,6 +30,11 @@ export function PitchView({
     }
   };
 
+  const handlePlayerClick = (player: FirebasePlayer | null) => {
+    if (player) {
+      onPlayerClick(player);
+    }
+  };
   return (
     <div className="relative">
       {/* Pitch Background */}
@@ -77,12 +82,16 @@ export function PitchView({
               <PitchPlayerCard
                 player={starters[index]!}
                 kitColor={clubColors.home}
-                onClick={() => onPlayerClick(starters[index])}
+                onClick={() => handlePlayerClick(starters[index])}
                 isDraggable={true}
                 positionIndex={index}
               />
             ) : (
-              <div className="w-16 h-20 bg-slate-800/60 border-2 border-dashed border-slate-500 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 transition-colors">
+              <div 
+                className="w-16 h-20 bg-slate-800/60 border-2 border-dashed border-slate-500 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-purple-400 transition-colors"
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, index)}
+              >
                 <span className="text-slate-400 text-xs font-medium">Empty</span>
                 <span className="text-slate-500 text-xs">{position.position.split(' ')[0]}</span>
               </div>

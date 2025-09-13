@@ -146,13 +146,13 @@ export function SquadReview({ managerName, clubName, clubLogo, colors, players, 
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
+          {/* <button
             onClick={onRegenerate}
             className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-2"
           >
             <Shuffle className="w-5 h-5" />
             Regenerate Squad
-          </button>
+          </button> */} 
           
           <button
             onClick={handleConfirm}

@@ -4,9 +4,9 @@ import { FormationSelector } from './FormationSelector';
 import { TeamStats } from './TeamStats';
 import { BenchPlayers } from './BenchPlayers';
 import { PlayerCard } from './PlayerCard';
-import { BenchPlayerCard } from './BenchPlayerCard'; // Add this import
+import { BenchPlayerCard } from './BenchPlayerCard';
 import { Club, FirebasePlayer } from '../types';
-import { Users } from 'lucide-react';
+import { Users, ArrowLeftRight, Eye, X } from 'lucide-react';
 import { ClubService } from '../services/clubService';
 
 interface SquadManagementProps {
@@ -159,7 +159,10 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
   const [starters, setStarters] = useState<(FirebasePlayer | null)[]>(new Array(11).fill(null));
   const [substitutes, setSubstitutes] = useState<FirebasePlayer[]>([]);
   const [selectedPlayer, setSelectedPlayer] = useState<FirebasePlayer | null>(null);
-  const [showBench, setShowBench] = useState(false);
+  const [showPlayerActions, setShowPlayerActions] = useState(false);
+  const [showSwapDialog, setShowSwapDialog] = useState(false);
+  const [playerToSwap, setPlayerToSwap] = useState<FirebasePlayer | null>(null);
+  const [showBench, setShowBench] = useState(true);
 
   // Define reserves variable
   const reserves = club?.players ? club.players.filter(p => p.squadPosition === 'reserve') : [];
@@ -291,6 +294,82 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
     }
   };
 
+  const handlePlayerClick = (player: FirebasePlayer) => {
+    setSelectedPlayer(player);
+    setShowPlayerActions(true);
+  };
+
+  const handleSwapAction = () => {
+    setPlayerToSwap(selectedPlayer);
+    setShowPlayerActions(false);
+    setShowSwapDialog(true);
+  };
+
+  const handleDetailsAction = () => {
+    setShowPlayerActions(false);
+    // selectedPlayer is already set, so the details modal will show
+  };
+
+  const handleSwapWithPlayer = async (targetPlayer: FirebasePlayer) => {
+    if (!playerToSwap) return;
+
+    const newStarters = [...starters];
+    const newSubs = [...substitutes];
+    const currentReserves = club?.players ? club.players.filter(p => p.squadPosition === 'reserve') : [];
+
+    // Find positions of both players
+    const swapPlayerStarterIndex = newStarters.findIndex(p => p?.id === playerToSwap.id);
+    const swapPlayerSubIndex = newSubs.findIndex(p => p?.id === playerToSwap.id);
+    const swapPlayerReserveIndex = currentReserves.findIndex(p => p?.id === playerToSwap.id);
+
+    const targetPlayerStarterIndex = newStarters.findIndex(p => p?.id === targetPlayer.id);
+    const targetPlayerSubIndex = newSubs.findIndex(p => p?.id === targetPlayer.id);
+    const targetPlayerReserveIndex = currentReserves.findIndex(p => p?.id === targetPlayer.id);
+
+    // Perform the swap based on where each player is located
+    if (swapPlayerStarterIndex !== -1) {
+      // Swap player is in starters
+      if (targetPlayerStarterIndex !== -1) {
+        // Both in starters - simple swap
+        const temp = newStarters[swapPlayerStarterIndex];
+        newStarters[swapPlayerStarterIndex] = newStarters[targetPlayerStarterIndex];
+        newStarters[targetPlayerStarterIndex] = temp;
+      } else if (targetPlayerSubIndex !== -1) {
+        // Swap starter with substitute
+        newStarters[swapPlayerStarterIndex] = targetPlayer;
+        newSubs[targetPlayerSubIndex] = playerToSwap;
+      } else if (targetPlayerReserveIndex !== -1) {
+        // Swap starter with reserve - handled by updateFirebaseAndClub
+        newStarters[swapPlayerStarterIndex] = targetPlayer;
+      }
+    } else if (swapPlayerSubIndex !== -1) {
+      // Swap player is in substitutes
+      if (targetPlayerStarterIndex !== -1) {
+        // Swap substitute with starter
+        newSubs[swapPlayerSubIndex] = targetPlayer;
+        newStarters[targetPlayerStarterIndex] = playerToSwap;
+      } else if (targetPlayerSubIndex !== -1) {
+        // Both in substitutes - simple swap
+        const temp = newSubs[swapPlayerSubIndex];
+        newSubs[swapPlayerSubIndex] = newSubs[targetPlayerSubIndex];
+        newSubs[targetPlayerSubIndex] = temp;
+      } else if (targetPlayerReserveIndex !== -1) {
+        // Swap substitute with reserve - handled by updateFirebaseAndClub
+        newSubs[swapPlayerSubIndex] = targetPlayer;
+      }
+    }
+    // Reserve swaps are handled by updating the full player list in updateFirebaseAndClub
+
+    setStarters(newStarters);
+    setSubstitutes(newSubs);
+    await updateFirebaseAndClub(newStarters, newSubs);
+    
+    // Close dialogs
+    setShowSwapDialog(false);
+    setPlayerToSwap(null);
+    setSelectedPlayer(null);
+  };
+
   const calculateTeamStamina = () => {
     const activeStarters = starters.filter(p => p !== null) as FirebasePlayer[];
     if (activeStarters.length === 0) return 0;
@@ -305,11 +384,11 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
   const calculatePositionOverall = (positions: string[]) => {
     const activeStarters = starters.filter(p => p !== null) as FirebasePlayer[];
     const positionPlayers = activeStarters.filter(player => {
-  if (!player?.position || typeof player.position !== 'string') {
-    return false;
-  }
-  return positions.some(pos => player.position.includes(pos));
-});
+      if (!player?.position || typeof player.position !== 'string') {
+        return false;
+      }
+      return positions.some(pos => player.position.includes(pos));
+    });
     
     if (positionPlayers.length === 0) return 0;
     
@@ -371,7 +450,7 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
               formation={currentFormation}
               starters={starters}
               clubColors={club.colors || { home: '#3B82F6', away: '#EF4444' }}
-              onPlayerClick={setSelectedPlayer}
+              onPlayerClick={handlePlayerClick}
               onPlayerDrop={handlePlayerSwap}
             />
           </div>
@@ -380,10 +459,10 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
             <BenchPlayers
               substitutes={substitutes}
               clubColors={club.colors || { home: '#3B82F6', away: '#EF4444' }}
-              onPlayerClick={setSelectedPlayer}
+              onPlayerClick={handlePlayerClick}
               onBenchPlayerDrop={handleBenchPlayerDrop}
-              show={true}
-              onToggle={() => {}}
+              show={showBench}
+              onToggle={() => setShowBench(!showBench)}
             />
             
             {/* Reserve Players */}
@@ -396,20 +475,20 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
               {reserves.length === 0 ? (
                 <div className="text-slate-400 text-sm text-center py-8 border-2 border-dashed border-slate-600 rounded-lg">
                   No reserve players
-                  <div className="text-xs mt-1">Players from transfers and league rewards appear here</div>
+                  <div className="text-xs mt-1">New signings go here when squad is full</div>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {reserves.map((player) => (
                     <div
                       key={player.id}
-                      onClick={() => setSelectedPlayer(player)}
+                      onClick={() => handlePlayerClick(player)}
                       className="cursor-pointer"
                     >
                       <BenchPlayerCard
                         player={player}
                         kitColor={club.colors?.home || '#3B82F6'}
-                        onClick={() => setSelectedPlayer(player)}
+                        onClick={() => handlePlayerClick(player)}
                         index={0}
                       />
                     </div>
@@ -428,7 +507,7 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
               formation={currentFormation.name}
             />
 
-            {selectedPlayer && (
+            {selectedPlayer && !showPlayerActions && !showSwapDialog && (
               <div className="hidden xl:block bg-slate-800/50 border border-slate-700 rounded-xl p-6">
                 <h3 className="text-lg font-bold text-white mb-4">Player Details</h3>
                 <PlayerCard
@@ -441,8 +520,224 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
           </div>
         </div>
 
+        {/* Player Actions Dialog */}
+        {showPlayerActions && selectedPlayer && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-md w-full">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white">Player Actions</h3>
+                <button
+                  onClick={() => setShowPlayerActions(false)}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <div className="flex items-center gap-3 mb-6">
+                <div className="relative w-12 h-12">
+                  {selectedPlayer.image_url ? (
+                    <img
+                      src={selectedPlayer.image_url}
+                      alt={selectedPlayer.name}
+                      className="w-12 h-12 rounded-lg object-cover border-2 border-slate-600"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const fallback = target.nextElementSibling as HTMLElement;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div 
+                    className={`w-12 h-12 rounded-lg border-2 border-slate-600 flex items-center justify-center text-white font-bold text-sm ${!selectedPlayer.image_url ? 'flex' : 'hidden'}`}
+                    style={{ backgroundColor: club.colors?.home || '#3B82F6' }}
+                  >
+                    {selectedPlayer.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold">{selectedPlayer.name}</h4>
+                  <p className="text-slate-400 text-sm">{selectedPlayer.position}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <button
+                  onClick={handleSwapAction}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  <ArrowLeftRight className="w-4 h-4" />
+                  Swap Position
+                </button>
+                
+                <button
+                  onClick={handleDetailsAction}
+                  className="w-full bg-slate-700 hover:bg-slate-600 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  <Eye className="w-4 h-4" />
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Swap Dialog */}
+        {showSwapDialog && playerToSwap && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-bold text-white">Swap {playerToSwap.name}</h3>
+                <button
+                  onClick={() => {
+                    setShowSwapDialog(false);
+                    setPlayerToSwap(null);
+                  }}
+                  className="text-slate-400 hover:text-white transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <p className="text-slate-400 text-sm mb-6">Select a player to swap positions with:</p>
+              
+              <div className="space-y-6">
+                {/* Starting XI */}
+                <div>
+                  <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <div className="w-3 h-3 bg-purple-500 rounded-full" />
+                    Starting XI
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {starters.filter(p => p && p.id !== playerToSwap.id).map((player) => (
+                      <button
+                        key={player!.id}
+                        onClick={() => handleSwapWithPlayer(player!)}
+                        className="flex items-center gap-3 p-3 bg-slate-700/30 border border-slate-600 rounded-lg hover:border-purple-500/50 transition-colors text-left"
+                      >
+                        <div className="relative w-10 h-10">
+                          {player!.image_url ? (
+                            <img
+                              src={player!.image_url}
+                              alt={player!.name}
+                              className="w-10 h-10 rounded-lg object-cover border-2 border-slate-600"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className={`w-10 h-10 rounded-lg border-2 border-slate-600 flex items-center justify-center text-white font-bold text-xs ${!player!.image_url ? 'flex' : 'hidden'}`}
+                            style={{ backgroundColor: club.colors?.home || '#3B82F6' }}
+                          >
+                            {player!.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">{player!.name}</div>
+                          <div className="text-slate-400 text-sm">{player!.position}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Substitutes */}
+                <div>
+                  <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                    Substitutes
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {substitutes.filter(p => p.id !== playerToSwap.id).map((player) => (
+                      <button
+                        key={player.id}
+                        onClick={() => handleSwapWithPlayer(player)}
+                        className="flex items-center gap-3 p-3 bg-slate-700/30 border border-slate-600 rounded-lg hover:border-yellow-500/50 transition-colors text-left"
+                      >
+                        <div className="relative w-10 h-10">
+                          {player.image_url ? (
+                            <img
+                              src={player.image_url}
+                              alt={player.name}
+                              className="w-10 h-10 rounded-lg object-cover border-2 border-slate-600"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className={`w-10 h-10 rounded-lg border-2 border-slate-600 flex items-center justify-center text-white font-bold text-xs ${!player.image_url ? 'flex' : 'hidden'}`}
+                            style={{ backgroundColor: club.colors?.away || '#EF4444' }}
+                          >
+                            {player.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">{player.name}</div>
+                          <div className="text-slate-400 text-sm">{player.position}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Reserves */}
+                <div>
+                  <h4 className="text-white font-semibold mb-3 flex items-center gap-2">
+                    <div className="w-3 h-3 bg-slate-500 rounded-full" />
+                    Reserves
+                  </h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {reserves.filter(p => p.id !== playerToSwap.id).map((player) => (
+                      <button
+                        key={player.id}
+                        onClick={() => handleSwapWithPlayer(player)}
+                        className="flex items-center gap-3 p-3 bg-slate-700/30 border border-slate-600 rounded-lg hover:border-slate-500/50 transition-colors text-left"
+                      >
+                        <div className="relative w-10 h-10">
+                          {player.image_url ? (
+                            <img
+                              src={player.image_url}
+                              alt={player.name}
+                              className="w-10 h-10 rounded-lg object-cover border-2 border-slate-600"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className={`w-10 h-10 rounded-lg border-2 border-slate-600 flex items-center justify-center text-white font-bold text-xs ${!player.image_url ? 'flex' : 'hidden'}`}
+                            style={{ backgroundColor: club.colors?.home || '#3B82F6' }}
+                          >
+                            {player.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-white font-medium">{player.name}</div>
+                          <div className="text-slate-400 text-sm">{player.position}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Mobile Player Details Modal */}
-        {selectedPlayer && (
+        {selectedPlayer && !showPlayerActions && !showSwapDialog && (
           <div className="xl:hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-4">
@@ -451,7 +746,7 @@ export function SquadManagement({ club, onUpdateClub }: SquadManagementProps) {
                   onClick={() => setSelectedPlayer(null)}
                   className="text-slate-400 hover:text-white transition-colors"
                 >
-                  ×
+                  <X className="w-5 h-5" />
                 </button>
               </div>
               <PlayerCard
