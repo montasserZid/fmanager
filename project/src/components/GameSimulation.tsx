@@ -400,9 +400,12 @@ export function GameSimulation({
 
                 {/* Score */}
                 <div className="text-center px-8">
-                  <div className={`text-6xl font-bold mb-2 transition-all duration-500 ${
+                  {/* <div className={`text-6xl font-bold mb-2 transition-all duration-500 ${
                     isSimulating ? 'text-green-400' : 'text-white'
-                  }`}>
+                  }`}> */}
+                  <div className={`text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 transition-all duration-500 ${
+  isSimulating ? 'text-green-400' : 'text-white'
+}`}>
                     {homeScore} - {awayScore}
                   </div>
                   {isSimulating && (
