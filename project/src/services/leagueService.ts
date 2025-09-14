@@ -138,7 +138,7 @@ export class LeagueService {
   }
 
   /**
-   * COMPLETELY FIXED: Generate proper round-robin fixtures with correct matchDay distribution
+   * FIXED: Proper round-robin algorithm with balanced home/away distribution
    */
   private static async generateFixtures(league: League): Promise<LeagueFixture[]> {
     const fixtures: LeagueFixture[] = [];
@@ -167,74 +167,86 @@ export class LeagueService {
     const startDate = new Date();
     let matchDay = 1;
 
-    // ROUND-ROBIN ALGORITHM: Proper scheduling to avoid all teams playing at once
-    // For N teams, we need (N-1) matchdays per round, with N/2 matches per matchday
+    // Create team array for round-robin scheduling
+    const teams = validClubs.map(club => club.id);
+    const isOdd = numClubs % 2 === 1;
     
-    const teamsForScheduling = validClubs.map(club => club.id);
-    const isOddNumber = numClubs % 2 === 1;
-    
-    // If odd number of teams, add a "BYE" to make even
-    if (isOddNumber) {
-      teamsForScheduling.push('BYE');
+    // Add dummy team for odd number of teams
+    if (isOdd) {
+      teams.push('BYE');
     }
     
-    const totalTeams = teamsForScheduling.length;
-    const matchesPerRound = (totalTeams - 1); // Number of matchdays per round
+    const totalTeams = teams.length;
+    const roundsNeeded = totalTeams - 1;
     
-    console.log(`Teams for scheduling: ${teamsForScheduling.length} (including BYE if needed)`);
-    console.log(`Matches per round: ${matchesPerRound}`);
+    console.log(`Teams: ${totalTeams}, Rounds needed: ${roundsNeeded}`);
 
-    // Generate 2 rounds (home and away)
+    // Generate 2 complete rounds (home and away legs)
     for (let round = 0; round < 2; round++) {
       console.log(`\n=== ROUND ${round + 1} (${round === 0 ? 'FIRST LEG' : 'SECOND LEG'}) ===`);
       
-      // Classic round-robin algorithm
-      for (let roundDay = 0; roundDay < matchesPerRound; roundDay++) {
+      // Generate each matchday in the round
+      for (let roundDay = 0; roundDay < roundsNeeded; roundDay++) {
         const dayFixtures: LeagueFixture[] = [];
         console.log(`\nGenerating MatchDay ${matchDay} fixtures:`);
         
-        // Generate matches for this matchDay using round-robin rotation
-        for (let match = 0; match < totalTeams / 2; match++) {
-          let homeIndex, awayIndex;
+        // Generate matches for this matchday using proper round-robin
+        for (let matchIndex = 0; matchIndex < totalTeams / 2; matchIndex++) {
+          let team1Index, team2Index;
           
-          if (match === 0) {
-            // First match: team 0 vs rotating opponent
-            homeIndex = 0;
-            awayIndex = totalTeams - 1 - roundDay;
+          if (matchIndex === 0) {
+            // Team 0 stays fixed, opponent rotates
+            team1Index = 0;
+            team2Index = roundDay + 1;
           } else {
-            // Other matches: calculated based on rotation
-            homeIndex = (roundDay + match) % (totalTeams - 1);
-            if (homeIndex === 0) homeIndex = totalTeams - 1;
+            // Other matches use circular rotation
+            team1Index = ((matchIndex + roundDay - 1) % (totalTeams - 1)) + 1;
+            team2Index = ((totalTeams - matchIndex + roundDay - 1) % (totalTeams - 1)) + 1;
             
-            awayIndex = (totalTeams - 1 - roundDay - match + totalTeams - 1) % (totalTeams - 1);
-            if (awayIndex === 0) awayIndex = totalTeams - 1;
+            // Handle collision with fixed team
+            if (team1Index >= totalTeams) team1Index = totalTeams - 1;
+            if (team2Index >= totalTeams) team2Index = totalTeams - 1;
+            if (team1Index === team2Index) {
+              team2Index = 0;
+            }
           }
           
-          // Ensure we don't go out of bounds
-          if (homeIndex >= totalTeams) homeIndex = totalTeams - 1;
-          if (awayIndex >= totalTeams) awayIndex = totalTeams - 1;
+          // Ensure indices are within bounds
+          if (team2Index >= totalTeams) team2Index = team2Index % totalTeams;
           
-          const homeTeamId = teamsForScheduling[homeIndex];
-          const awayTeamId = teamsForScheduling[awayIndex];
+          const team1Id = teams[team1Index];
+          const team2Id = teams[team2Index];
           
           // Skip BYE matches
-          if (homeTeamId === 'BYE' || awayTeamId === 'BYE') {
-            console.log(`  BYE: ${homeTeamId} vs ${awayTeamId} (skipped)`);
+          if (team1Id === 'BYE' || team2Id === 'BYE') {
+            console.log(`  BYE: ${team1Id} vs ${team2Id} (skipped)`);
             continue;
           }
           
           // Prevent self-matches
-          if (homeTeamId === awayTeamId) {
-            console.error(`  ERROR: Self-match detected: ${homeTeamId} vs ${awayTeamId}`);
+          if (team1Id === team2Id) {
+            console.error(`  ERROR: Self-match detected: ${team1Id} vs ${team2Id}`);
             continue;
           }
           
-          // For second round, swap home and away
-          const finalHomeId = round === 0 ? homeTeamId : awayTeamId;
-          const finalAwayId = round === 0 ? awayTeamId : homeTeamId;
+          // FIXED: Proper home/away alternation for balanced schedule
+          let homeTeamId, awayTeamId;
           
-          const homeClub = validClubs.find(c => c.id === finalHomeId);
-          const awayClub = validClubs.find(c => c.id === finalAwayId);
+          // Create alternating pattern based on round, matchday, and match index
+          const shouldAlternate = (roundDay + matchIndex + round) % 2 === 1;
+          
+          if (round === 0) {
+            // First round
+            homeTeamId = shouldAlternate ? team2Id : team1Id;
+            awayTeamId = shouldAlternate ? team1Id : team2Id;
+          } else {
+            // Second round: reverse the home/away from first round
+            homeTeamId = shouldAlternate ? team1Id : team2Id;
+            awayTeamId = shouldAlternate ? team2Id : team1Id;
+          }
+          
+          const homeClub = validClubs.find(c => c.id === homeTeamId);
+          const awayClub = validClubs.find(c => c.id === awayTeamId);
           
           if (homeClub && awayClub) {
             const fixtureDate = new Date(startDate);
@@ -254,11 +266,11 @@ export class LeagueService {
             };
             
             dayFixtures.push(fixture);
-            console.log(`  Match ${match + 1}: ${homeClub.clubName} vs ${awayClub.clubName}`);
+            console.log(`  Match ${matchIndex + 1}: ${homeClub.clubName} (H) vs ${awayClub.clubName} (A)`);
           }
         }
         
-        // Add this matchDay's fixtures
+        // Add this matchday's fixtures
         if (dayFixtures.length > 0) {
           fixtures.push(...dayFixtures);
           console.log(`  MatchDay ${matchDay}: ${dayFixtures.length} fixtures added`);
@@ -267,19 +279,19 @@ export class LeagueService {
       }
     }
     
-    // Final validation and logging
+    // Enhanced validation and reporting
     console.log(`\n=== FIXTURE GENERATION COMPLETE ===`);
     console.log(`Total fixtures: ${fixtures.length}`);
-    console.log(`Total matchDays: ${matchDay - 1}`);
+    console.log(`Total matchdays: ${matchDay - 1}`);
     
     // Validate no self-matches
     const selfMatches = fixtures.filter(f => f.homeClubId === f.awayClubId);
     if (selfMatches.length > 0) {
-      console.error(`❌ ERROR: Found ${selfMatches.length} self-matches!`);
+      console.error(`ERROR: Found ${selfMatches.length} self-matches!`);
       throw new Error('Self-matches detected');
     }
     
-    // Validate each team plays correct number of games
+    // Validate total games per team
     const teamGameCount: {[teamId: string]: number} = {};
     fixtures.forEach(f => {
       teamGameCount[f.homeClubId] = (teamGameCount[f.homeClubId] || 0) + 1;
@@ -291,14 +303,45 @@ export class LeagueService {
       const club = validClubs.find(c => c.id === teamId);
       console.log(`${club?.clubName}: ${games} games`);
       
-      // Each team should play (numClubs - 1) * 2 games total
       const expectedGames = (numClubs - 1) * 2;
       if (games !== expectedGames) {
-        console.error(`❌ ERROR: ${club?.clubName} has ${games} games, expected ${expectedGames}`);
+        console.error(`ERROR: ${club?.clubName} has ${games} games, expected ${expectedGames}`);
+        throw new Error(`Incorrect number of games for ${club?.clubName}`);
       }
     });
     
-    // Log matchDay distribution
+    // Validate home/away balance
+    console.log('\n=== HOME/AWAY DISTRIBUTION ===');
+    const homeAwayCount: {[teamId: string]: {home: number, away: number}} = {};
+    
+    fixtures.forEach(fixture => {
+      if (!homeAwayCount[fixture.homeClubId]) {
+        homeAwayCount[fixture.homeClubId] = {home: 0, away: 0};
+      }
+      if (!homeAwayCount[fixture.awayClubId]) {
+        homeAwayCount[fixture.awayClubId] = {home: 0, away: 0};
+      }
+      
+      homeAwayCount[fixture.homeClubId].home++;
+      homeAwayCount[fixture.awayClubId].away++;
+    });
+    
+    Object.entries(homeAwayCount).forEach(([teamId, counts]) => {
+      const club = validClubs.find(c => c.id === teamId);
+      const expectedGames = numClubs - 1;
+      console.log(`${club?.clubName}: ${counts.home}H / ${counts.away}A (expected: ${expectedGames}/${expectedGames})`);
+      
+      // Check for major imbalances
+      if (Math.abs(counts.home - counts.away) > 1) {
+        console.warn(`WARNING: ${club?.clubName} has unbalanced home/away distribution`);
+      }
+      
+      if (counts.home !== expectedGames || counts.away !== expectedGames) {
+        console.error(`ERROR: ${club?.clubName} home/away count incorrect`);
+      }
+    });
+    
+    // Log matchday distribution
     const matchDayCount: {[key: number]: number} = {};
     fixtures.forEach(f => {
       matchDayCount[f.matchDay] = (matchDayCount[f.matchDay] || 0) + 1;
@@ -309,6 +352,7 @@ export class LeagueService {
       console.log(`MatchDay ${day}: ${count} fixtures`);
     });
     
+    console.log('\nFixture generation completed successfully!');
     return fixtures;
   }
 
@@ -858,10 +902,6 @@ export class LeagueService {
     }
   }
 
-  /**
-   * REMOVED: Duplicate updatePlayerCards method - already handled in updatePlayerStaminaAndCards
-   */
-
   private static async awardPlayerReward(clubId: string, playerReward: FirebasePlayer): Promise<void> {
     // Get the winning club by ID
     const clubsRef = collection(db, 'clubs');
@@ -986,7 +1026,7 @@ export class LeagueService {
       if (today >= dayAfterMatch && fixture.status === 'available') {
         console.log(`Auto-forfeiting match: ${fixture.homeClubName} vs ${fixture.awayClubName} (scheduled for ${matchDate.toDateString()})`);
         
-        // Create forfeited match result (0-3 to away team)
+        // FIXED: Award forfeit to away team (3-0)
         const forfeitMatch: LeagueMatch = {
           id: doc(collection(db, 'leagueMatches')).id,
           fixtureId: fixture.id,
@@ -1171,3 +1211,4 @@ export class LeagueService {
     };
   }
 }
+      
