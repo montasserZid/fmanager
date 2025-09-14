@@ -138,7 +138,7 @@ export class LeagueService {
   }
 
   /**
-   * FIXED: Proper round-robin algorithm with balanced home/away distribution
+   * FIXED: Using proper double round-robin algorithm with balanced home/away distribution
    */
   private static async generateFixtures(league: League): Promise<LeagueFixture[]> {
     const fixtures: LeagueFixture[] = [];
@@ -167,116 +167,47 @@ export class LeagueService {
     const startDate = new Date();
     let matchDay = 1;
 
-    // Create team array for round-robin scheduling
-    const teams = validClubs.map(club => club.id);
-    const isOdd = numClubs % 2 === 1;
+    // Generate fixtures using the improved round-robin algorithm
+    const teamIds = validClubs.map(club => club.id);
+    const allRounds = this.generateDoubleRoundRobin(teamIds);
     
-    // Add dummy team for odd number of teams
-    if (isOdd) {
-      teams.push('BYE');
-    }
-    
-    const totalTeams = teams.length;
-    const roundsNeeded = totalTeams - 1;
-    
-    console.log(`Teams: ${totalTeams}, Rounds needed: ${roundsNeeded}`);
+    console.log(`Generated ${allRounds.length} rounds with ${allRounds.reduce((total, round) => total + round.length, 0)} total matches`);
 
-    // Generate 2 complete rounds (home and away legs)
-    for (let round = 0; round < 2; round++) {
-      console.log(`\n=== ROUND ${round + 1} (${round === 0 ? 'FIRST LEG' : 'SECOND LEG'}) ===`);
+    // Convert the match rounds to LeagueFixtures
+    for (let roundIndex = 0; roundIndex < allRounds.length; roundIndex++) {
+      const round = allRounds[roundIndex];
+      const isSecondLeg = roundIndex >= (allRounds.length / 2);
       
-      // Generate each matchday in the round
-      for (let roundDay = 0; roundDay < roundsNeeded; roundDay++) {
-        const dayFixtures: LeagueFixture[] = [];
-        console.log(`\nGenerating MatchDay ${matchDay} fixtures:`);
+      console.log(`\n=== Round ${roundIndex + 1} (${isSecondLeg ? 'SECOND LEG' : 'FIRST LEG'}) ===`);
+      console.log(`MatchDay ${matchDay}: ${round.length} fixtures`);
+      
+      for (const match of round) {
+        const homeClub = validClubs.find(c => c.id === match.home);
+        const awayClub = validClubs.find(c => c.id === match.away);
         
-        // Generate matches for this matchday using proper round-robin
-        for (let matchIndex = 0; matchIndex < totalTeams / 2; matchIndex++) {
-          let team1Index, team2Index;
+        if (homeClub && awayClub) {
+          const fixtureDate = new Date(startDate);
+          fixtureDate.setDate(startDate.getDate() + matchDay - 1);
           
-          if (matchIndex === 0) {
-            // Team 0 stays fixed, opponent rotates
-            team1Index = 0;
-            team2Index = roundDay + 1;
-          } else {
-            // Other matches use circular rotation
-            team1Index = ((matchIndex + roundDay - 1) % (totalTeams - 1)) + 1;
-            team2Index = ((totalTeams - matchIndex + roundDay - 1) % (totalTeams - 1)) + 1;
-            
-            // Handle collision with fixed team
-            if (team1Index >= totalTeams) team1Index = totalTeams - 1;
-            if (team2Index >= totalTeams) team2Index = totalTeams - 1;
-            if (team1Index === team2Index) {
-              team2Index = 0;
-            }
-          }
+          const fixture: LeagueFixture = {
+            id: doc(collection(db, 'fixtures')).id,
+            matchDay,
+            homeClubId: homeClub.id,
+            awayClubId: awayClub.id,
+            homeClubName: homeClub.clubName,
+            awayClubName: awayClub.clubName,
+            homeClubLogo: homeClub.clubLogo,
+            awayClubLogo: awayClub.clubLogo,
+            scheduledDate: fixtureDate,
+            status: matchDay === 1 ? 'available' : 'scheduled'
+          };
           
-          // Ensure indices are within bounds
-          if (team2Index >= totalTeams) team2Index = team2Index % totalTeams;
-          
-          const team1Id = teams[team1Index];
-          const team2Id = teams[team2Index];
-          
-          // Skip BYE matches
-          if (team1Id === 'BYE' || team2Id === 'BYE') {
-            console.log(`  BYE: ${team1Id} vs ${team2Id} (skipped)`);
-            continue;
-          }
-          
-          // Prevent self-matches
-          if (team1Id === team2Id) {
-            console.error(`  ERROR: Self-match detected: ${team1Id} vs ${team2Id}`);
-            continue;
-          }
-          
-          // FIXED: Proper home/away alternation for balanced schedule
-          let homeTeamId, awayTeamId;
-          
-          // Create alternating pattern based on round, matchday, and match index
-          const shouldAlternate = (roundDay + matchIndex + round) % 2 === 1;
-          
-          if (round === 0) {
-            // First round
-            homeTeamId = shouldAlternate ? team2Id : team1Id;
-            awayTeamId = shouldAlternate ? team1Id : team2Id;
-          } else {
-            // Second round: reverse the home/away from first round
-            homeTeamId = shouldAlternate ? team1Id : team2Id;
-            awayTeamId = shouldAlternate ? team2Id : team1Id;
-          }
-          
-          const homeClub = validClubs.find(c => c.id === homeTeamId);
-          const awayClub = validClubs.find(c => c.id === awayTeamId);
-          
-          if (homeClub && awayClub) {
-            const fixtureDate = new Date(startDate);
-            fixtureDate.setDate(startDate.getDate() + matchDay - 1);
-            
-            const fixture: LeagueFixture = {
-              id: doc(collection(db, 'fixtures')).id,
-              matchDay,
-              homeClubId: homeClub.id,
-              awayClubId: awayClub.id,
-              homeClubName: homeClub.clubName,
-              awayClubName: awayClub.clubName,
-              homeClubLogo: homeClub.clubLogo,
-              awayClubLogo: awayClub.clubLogo,
-              scheduledDate: fixtureDate,
-              status: matchDay === 1 ? 'available' : 'scheduled'
-            };
-            
-            dayFixtures.push(fixture);
-            console.log(`  Match ${matchIndex + 1}: ${homeClub.clubName} (H) vs ${awayClub.clubName} (A)`);
-          }
-        }
-        
-        // Add this matchday's fixtures
-        if (dayFixtures.length > 0) {
-          fixtures.push(...dayFixtures);
-          console.log(`  MatchDay ${matchDay}: ${dayFixtures.length} fixtures added`);
-          matchDay++;
+          fixtures.push(fixture);
+          console.log(`  ${homeClub.clubName} (H) vs ${awayClub.clubName} (A)`);
         }
       }
+      
+      matchDay++;
     }
     
     // Enhanced validation and reporting
@@ -354,6 +285,50 @@ export class LeagueService {
     
     console.log('\nFixture generation completed successfully!');
     return fixtures;
+  }
+
+  /**
+   * NEW: Proper double round-robin algorithm based on your solution
+   */
+  private static generateDoubleRoundRobin(teams: string[]): Array<Array<{home: string, away: string}>> {
+    const t = [...teams];
+    if (t.length % 2 === 1) t.push("BYE");
+    const n = t.length;
+    const totalRounds = n - 1;
+    const matchesPerRound = n / 2;
+    const teamList = [...t];
+
+    const firstLeg: Array<Array<{home: string, away: string}>> = [];
+
+    for (let round = 0; round < totalRounds; round++) {
+      const roundMatches: Array<{home: string, away: string}> = [];
+      
+      for (let m = 0; m < matchesPerRound; m++) {
+        let home = teamList[m];
+        let away = teamList[n - 1 - m];
+
+        // IMPORTANT: alternate the fixed team's home/away by round parity
+        if (m === 0 && round % 2 === 1) {
+          [home, away] = [away, home];
+        }
+
+        if (home !== "BYE" && away !== "BYE") {
+          roundMatches.push({ home, away });
+        }
+      }
+      
+      if (roundMatches.length > 0) {
+        firstLeg.push(roundMatches);
+      }
+
+      // rotate keeping index 0 fixed (circle method)
+      teamList.splice(1, 0, teamList.pop() as string);
+    }
+
+    // second leg = same fixtures with swapped home/away
+    const secondLeg = firstLeg.map(r => r.map(({ home, away }) => ({ home: away, away: home })));
+
+    return [...firstLeg, ...secondLeg];
   }
 
   private static async initializeLeaderboard(clubIds: string[]) {
