@@ -288,47 +288,111 @@ export class LeagueService {
   }
 
   /**
-   * NEW: Proper double round-robin algorithm based on your solution
+   * FIXED: Proper double round-robin algorithm with correct team rotation
    */
   private static generateDoubleRoundRobin(teams: string[]): Array<Array<{home: string, away: string}>> {
-    const t = [...teams];
-    if (t.length % 2 === 1) t.push("BYE");
-    const n = t.length;
-    const totalRounds = n - 1;
-    const matchesPerRound = n / 2;
-    const teamList = [...t];
-
+    console.log(`\n=== GENERATING DOUBLE ROUND-ROBIN FOR ${teams.length} TEAMS ===`);
+    console.log('Teams:', teams.join(', '));
+    
+    // Make a copy and add dummy team if odd number
+    const teamsCopy = [...teams];
+    const isOddTeams = teamsCopy.length % 2 === 1;
+    if (isOddTeams) {
+      teamsCopy.push("BYE");
+      console.log('Added BYE team for odd number of teams');
+    }
+    
+    const numTeams = teamsCopy.length;
+    const numRounds = numTeams - 1;
+    const matchesPerRound = numTeams / 2;
+    
+    console.log(`Configuration: ${numTeams} teams, ${numRounds} rounds, ${matchesPerRound} matches per round`);
+    
+    // Create rotating array - keep first team fixed, rotate others
+    const rotatingTeams = [...teamsCopy];
     const firstLeg: Array<Array<{home: string, away: string}>> = [];
-
-    for (let round = 0; round < totalRounds; round++) {
+    
+    for (let round = 0; round < numRounds; round++) {
       const roundMatches: Array<{home: string, away: string}> = [];
       
-      for (let m = 0; m < matchesPerRound; m++) {
-        let home = teamList[m];
-        let away = teamList[n - 1 - m];
-
-        // IMPORTANT: alternate the fixed team's home/away by round parity
-        if (m === 0 && round % 2 === 1) {
-          [home, away] = [away, home];
+      console.log(`\n--- Round ${round + 1} ---`);
+      console.log('Team positions:', rotatingTeams.join(', '));
+      
+      // Pair teams: first with last, second with second-to-last, etc.
+      for (let i = 0; i < matchesPerRound; i++) {
+        const team1 = rotatingTeams[i];
+        const team2 = rotatingTeams[numTeams - 1 - i];
+        
+        // Skip if either team is BYE
+        if (team1 === "BYE" || team2 === "BYE") {
+          console.log(`  Match ${i + 1}: ${team1} vs ${team2} (SKIPPED - BYE)`);
+          continue;
         }
-
-        if (home !== "BYE" && away !== "BYE") {
-          roundMatches.push({ home, away });
+        
+        // Alternate home/away for variety
+        let home, away;
+        if ((round + i) % 2 === 0) {
+          home = team1;
+          away = team2;
+        } else {
+          home = team2;
+          away = team1;
         }
+        
+        roundMatches.push({ home, away });
+        console.log(`  Match ${i + 1}: ${home} (H) vs ${away} (A)`);
       }
       
       if (roundMatches.length > 0) {
         firstLeg.push(roundMatches);
+        console.log(`Round ${round + 1} complete: ${roundMatches.length} matches`);
       }
-
-      // rotate keeping index 0 fixed (circle method)
-      teamList.splice(1, 0, teamList.pop() as string);
+      
+      // Rotate teams (keep first team fixed, rotate others clockwise)
+      if (numTeams > 2) {
+        const lastTeam = rotatingTeams.pop()!;
+        rotatingTeams.splice(1, 0, lastTeam);
+      }
     }
-
-    // second leg = same fixtures with swapped home/away
-    const secondLeg = firstLeg.map(r => r.map(({ home, away }) => ({ home: away, away: home })));
-
-    return [...firstLeg, ...secondLeg];
+    
+    console.log(`\nFirst leg complete: ${firstLeg.length} rounds`);
+    
+    // Generate second leg (return fixtures with home/away swapped)
+    const secondLeg = firstLeg.map((round, roundIndex) => {
+      console.log(`\nSecond leg round ${roundIndex + 1}:`);
+      return round.map(match => {
+        const swapped = { home: match.away, away: match.home };
+        console.log(`  ${swapped.home} (H) vs ${swapped.away} (A)`);
+        return swapped;
+      });
+    });
+    
+    const allRounds = [...firstLeg, ...secondLeg];
+    console.log(`\n=== DOUBLE ROUND-ROBIN COMPLETE ===`);
+    console.log(`Total rounds: ${allRounds.length}`);
+    console.log(`Total matches: ${allRounds.reduce((sum, round) => sum + round.length, 0)}`);
+    
+    // Validation: Check that each team plays the correct number of matches
+    const teamMatchCount: {[team: string]: number} = {};
+    allRounds.forEach(round => {
+      round.forEach(match => {
+        teamMatchCount[match.home] = (teamMatchCount[match.home] || 0) + 1;
+        teamMatchCount[match.away] = (teamMatchCount[match.away] || 0) + 1;
+      });
+    });
+    
+    console.log('\n=== VALIDATION ===');
+    const expectedMatches = (teams.length - 1) * 2; // Each team plays every other team twice
+    Object.entries(teamMatchCount).forEach(([team, matches]) => {
+      if (team !== "BYE") {
+        console.log(`${team}: ${matches} matches (expected: ${expectedMatches})`);
+        if (matches !== expectedMatches) {
+          console.error(`ERROR: ${team} has incorrect number of matches!`);
+        }
+      }
+    });
+    
+    return allRounds;
   }
 
   private static async initializeLeaderboard(clubIds: string[]) {
