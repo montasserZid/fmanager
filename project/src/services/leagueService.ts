@@ -138,8 +138,7 @@ export class LeagueService {
   }
 
   /**
-   * COMPLETELY REWRITTEN: Generate fixtures with proper round-robin scheduling
-   * Handles 2-16 clubs, multiple matches per matchDay, prevents self-matches
+   * COMPLETELY FIXED: Generate proper round-robin fixtures with correct matchDay distribution
    */
   private static async generateFixtures(league: League): Promise<LeagueFixture[]> {
     const fixtures: LeagueFixture[] = [];
@@ -166,88 +165,138 @@ export class LeagueService {
     }
 
     const startDate = new Date();
-    let currentDate = new Date(startDate);
     let matchDay = 1;
 
-    // Generate fixtures for 2 complete rounds (home and away)
+    // ROUND-ROBIN ALGORITHM: Proper scheduling to avoid all teams playing at once
+    // For N teams, we need (N-1) matchdays per round, with N/2 matches per matchday
+    
+    const teamsForScheduling = validClubs.map(club => club.id);
+    const isOddNumber = numClubs % 2 === 1;
+    
+    // If odd number of teams, add a "BYE" to make even
+    if (isOddNumber) {
+      teamsForScheduling.push('BYE');
+    }
+    
+    const totalTeams = teamsForScheduling.length;
+    const matchesPerRound = (totalTeams - 1); // Number of matchdays per round
+    
+    console.log(`Teams for scheduling: ${teamsForScheduling.length} (including BYE if needed)`);
+    console.log(`Matches per round: ${matchesPerRound}`);
+
+    // Generate 2 rounds (home and away)
     for (let round = 0; round < 2; round++) {
-      console.log(`\n=== ROUND ${round + 1} (${round === 0 ? 'HOME' : 'AWAY'}) ===`);
+      console.log(`\n=== ROUND ${round + 1} (${round === 0 ? 'FIRST LEG' : 'SECOND LEG'}) ===`);
       
-      // Create all possible pairings for this round
-      const roundFixtures: LeagueFixture[] = [];
-      
-      for (let i = 0; i < validClubs.length; i++) {
-        for (let j = i + 1; j < validClubs.length; j++) {
-          const club1 = validClubs[i];
-          const club2 = validClubs[j];
+      // Classic round-robin algorithm
+      for (let roundDay = 0; roundDay < matchesPerRound; roundDay++) {
+        const dayFixtures: LeagueFixture[] = [];
+        console.log(`\nGenerating MatchDay ${matchDay} fixtures:`);
+        
+        // Generate matches for this matchDay using round-robin rotation
+        for (let match = 0; match < totalTeams / 2; match++) {
+          let homeIndex, awayIndex;
           
-          // Prevent self-matches
-          if (club1.id === club2.id) {
-            console.error(`ERROR: Attempted self-match for club ${club1.clubName}`);
+          if (match === 0) {
+            // First match: team 0 vs rotating opponent
+            homeIndex = 0;
+            awayIndex = totalTeams - 1 - roundDay;
+          } else {
+            // Other matches: calculated based on rotation
+            homeIndex = (roundDay + match) % (totalTeams - 1);
+            if (homeIndex === 0) homeIndex = totalTeams - 1;
+            
+            awayIndex = (totalTeams - 1 - roundDay - match + totalTeams - 1) % (totalTeams - 1);
+            if (awayIndex === 0) awayIndex = totalTeams - 1;
+          }
+          
+          // Ensure we don't go out of bounds
+          if (homeIndex >= totalTeams) homeIndex = totalTeams - 1;
+          if (awayIndex >= totalTeams) awayIndex = totalTeams - 1;
+          
+          const homeTeamId = teamsForScheduling[homeIndex];
+          const awayTeamId = teamsForScheduling[awayIndex];
+          
+          // Skip BYE matches
+          if (homeTeamId === 'BYE' || awayTeamId === 'BYE') {
+            console.log(`  BYE: ${homeTeamId} vs ${awayTeamId} (skipped)`);
             continue;
           }
           
-          // For round 1: club1 home, club2 away
-          // For round 2: club2 home, club1 away
-          const homeClub = round === 0 ? club1 : club2;
-          const awayClub = round === 0 ? club2 : club1;
+          // Prevent self-matches
+          if (homeTeamId === awayTeamId) {
+            console.error(`  ERROR: Self-match detected: ${homeTeamId} vs ${awayTeamId}`);
+            continue;
+          }
           
-          const fixture: LeagueFixture = {
-            id: doc(collection(db, 'fixtures')).id,
-            matchDay: 0, // Will be assigned later
-            homeClubId: homeClub.id,
-            awayClubId: awayClub.id,
-            homeClubName: homeClub.clubName,
-            awayClubName: awayClub.clubName,
-            homeClubLogo: homeClub.clubLogo,
-            awayClubLogo: awayClub.clubLogo,
-            scheduledDate: new Date(currentDate),
-            status: 'scheduled'
-          };
+          // For second round, swap home and away
+          const finalHomeId = round === 0 ? homeTeamId : awayTeamId;
+          const finalAwayId = round === 0 ? awayTeamId : homeTeamId;
           
-          roundFixtures.push(fixture);
-          console.log(`Created fixture: ${homeClub.clubName} vs ${awayClub.clubName}`);
+          const homeClub = validClubs.find(c => c.id === finalHomeId);
+          const awayClub = validClubs.find(c => c.id === finalAwayId);
+          
+          if (homeClub && awayClub) {
+            const fixtureDate = new Date(startDate);
+            fixtureDate.setDate(startDate.getDate() + matchDay - 1);
+            
+            const fixture: LeagueFixture = {
+              id: doc(collection(db, 'fixtures')).id,
+              matchDay,
+              homeClubId: homeClub.id,
+              awayClubId: awayClub.id,
+              homeClubName: homeClub.clubName,
+              awayClubName: awayClub.clubName,
+              homeClubLogo: homeClub.clubLogo,
+              awayClubLogo: awayClub.clubLogo,
+              scheduledDate: fixtureDate,
+              status: matchDay === 1 ? 'available' : 'scheduled'
+            };
+            
+            dayFixtures.push(fixture);
+            console.log(`  Match ${match + 1}: ${homeClub.clubName} vs ${awayClub.clubName}`);
+          }
+        }
+        
+        // Add this matchDay's fixtures
+        if (dayFixtures.length > 0) {
+          fixtures.push(...dayFixtures);
+          console.log(`  MatchDay ${matchDay}: ${dayFixtures.length} fixtures added`);
+          matchDay++;
         }
       }
-      
-      // Now assign matchDays to distribute games evenly
-      // For N teams, we want approximately N/2 games per matchDay
-      const gamesPerMatchDay = Math.floor(numClubs / 2);
-      console.log(`\nAssigning ${roundFixtures.length} fixtures to matchDays (${gamesPerMatchDay} games per day)`);
-      
-      for (let i = 0; i < roundFixtures.length; i++) {
-        const currentMatchDay = matchDay + Math.floor(i / gamesPerMatchDay);
-        const daysToAdd = currentMatchDay - 1;
-        
-        roundFixtures[i].matchDay = currentMatchDay;
-        roundFixtures[i].scheduledDate = new Date(startDate);
-        roundFixtures[i].scheduledDate.setDate(startDate.getDate() + daysToAdd);
-        roundFixtures[i].status = currentMatchDay === 1 ? 'available' : 'scheduled';
-        
-        console.log(`MatchDay ${currentMatchDay}: ${roundFixtures[i].homeClubName} vs ${roundFixtures[i].awayClubName} (${roundFixtures[i].scheduledDate.toDateString()})`);
-      }
-      
-      // Update matchDay counter for next round
-      matchDay = Math.max(...roundFixtures.map(f => f.matchDay)) + 1;
-      
-      // Add round fixtures to main array
-      fixtures.push(...roundFixtures);
     }
     
-    // Final validation
+    // Final validation and logging
     console.log(`\n=== FIXTURE GENERATION COMPLETE ===`);
     console.log(`Total fixtures: ${fixtures.length}`);
-    console.log(`Total matchDays: ${Math.max(...fixtures.map(f => f.matchDay))}`);
+    console.log(`Total matchDays: ${matchDay - 1}`);
     
-    // Check for self-matches
+    // Validate no self-matches
     const selfMatches = fixtures.filter(f => f.homeClubId === f.awayClubId);
     if (selfMatches.length > 0) {
-      console.error(`ERROR: Found ${selfMatches.length} self-matches!`);
-      selfMatches.forEach(f => {
-        console.error(`Self-match: ${f.homeClubName} vs ${f.awayClubName}`);
-      });
-      throw new Error('Self-matches detected in fixture generation');
+      console.error(`❌ ERROR: Found ${selfMatches.length} self-matches!`);
+      throw new Error('Self-matches detected');
     }
+    
+    // Validate each team plays correct number of games
+    const teamGameCount: {[teamId: string]: number} = {};
+    fixtures.forEach(f => {
+      teamGameCount[f.homeClubId] = (teamGameCount[f.homeClubId] || 0) + 1;
+      teamGameCount[f.awayClubId] = (teamGameCount[f.awayClubId] || 0) + 1;
+    });
+    
+    console.log('\n=== GAMES PER TEAM ===');
+    Object.entries(teamGameCount).forEach(([teamId, games]) => {
+      const club = validClubs.find(c => c.id === teamId);
+      console.log(`${club?.clubName}: ${games} games`);
+      
+      // Each team should play (numClubs - 1) * 2 games total
+      const expectedGames = (numClubs - 1) * 2;
+      if (games !== expectedGames) {
+        console.error(`❌ ERROR: ${club?.clubName} has ${games} games, expected ${expectedGames}`);
+      }
+    });
     
     // Log matchDay distribution
     const matchDayCount: {[key: number]: number} = {};
@@ -255,9 +304,9 @@ export class LeagueService {
       matchDayCount[f.matchDay] = (matchDayCount[f.matchDay] || 0) + 1;
     });
     
-    console.log('Fixtures per matchDay:');
+    console.log('\n=== FIXTURES PER MATCHDAY ===');
     Object.entries(matchDayCount).forEach(([day, count]) => {
-      console.log(`  MatchDay ${day}: ${count} fixtures`);
+      console.log(`MatchDay ${day}: ${count} fixtures`);
     });
     
     return fixtures;
