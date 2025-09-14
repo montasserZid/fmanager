@@ -12,23 +12,22 @@ import {
 import { db } from '../lib/firebase';
 import { League, LeagueFixture, LeagueMatch, Club, FirebasePlayer } from '../types';
 import { ClubService } from './clubService';
-import { MatchSimulationService } from './matchSimulationService';
 import teamsData from '../../teams/les_equipes.json';
 
 export class LeagueService {
-  static async createLeague(
-    name: string,
-    password: string,
-    serverId: string,
-    maxCapacity: number,
-    prizeDistribution: {
-      first: number;
-      second: number;
-      third: number;
-      others: number;
-    },
+static async createLeague(
+  name: string,
+  password: string,
+  serverId: string,  // <- Add this parameter
+  maxCapacity: number,
+  prizeDistribution: {
+    first: number;
+    second: number;
+    third: number;
+    others: number;
+  },
     playerReward?: FirebasePlayer
-  ): Promise<string> {
+): Promise<string> {
     const leagueId = doc(collection(db, 'leagues')).id;
     
     const league: League = {
@@ -123,7 +122,6 @@ export class LeagueService {
     
     // Generate fixtures
     const fixtures = await this.generateFixtures(league);
-    console.log(`Generated ${fixtures.length} fixtures for ${league.clubs.length} clubs`);
     
     // Initialize leaderboard
     const leaderboard = await this.initializeLeaderboard(league.clubs);
@@ -137,59 +135,36 @@ export class LeagueService {
     });
   }
 
-  /**
-   * FIXED: Using proper double round-robin algorithm with balanced home/away distribution
-   */
   private static async generateFixtures(league: League): Promise<LeagueFixture[]> {
     const fixtures: LeagueFixture[] = [];
     const clubs = league.clubs;
-    const numClubs = clubs.length;
-    
-    console.log(`Generating fixtures for ${numClubs} clubs: ${clubs.join(', ')}`);
     
     // Get club details
     const clubDetails = await Promise.all(
       clubs.map(async (clubId) => {
         const clubsRef = collection(db, 'clubs');
         const clubsSnapshot = await getDocs(query(clubsRef, where('id', '==', clubId)));
-        const club = clubsSnapshot.docs[0]?.data() as Club;
-        console.log(`Found club: ${club?.clubName || 'UNKNOWN'} (${clubId})`);
-        return club;
+        return clubsSnapshot.docs[0]?.data() as Club;
       })
     );
-
-    // Validate all clubs were found
-    const validClubs = clubDetails.filter(club => club !== null && club !== undefined);
-    if (validClubs.length !== numClubs) {
-      throw new Error(`Could not find all clubs. Expected ${numClubs}, found ${validClubs.length}`);
-    }
-
-    const startDate = new Date();
-    let matchDay = 1;
-
-    // Generate fixtures using the improved round-robin algorithm
-    const teamIds = validClubs.map(club => club.id);
-    const allRounds = this.generateDoubleRoundRobin(teamIds);
     
-    console.log(`Generated ${allRounds.length} rounds with ${allRounds.reduce((total, round) => total + round.length, 0)} total matches`);
-
-    // Convert the match rounds to LeagueFixtures
-    for (let roundIndex = 0; roundIndex < allRounds.length; roundIndex++) {
-      const round = allRounds[roundIndex];
-      const isSecondLeg = roundIndex >= (allRounds.length / 2);
-      
-      console.log(`\n=== Round ${roundIndex + 1} (${isSecondLeg ? 'SECOND LEG' : 'FIRST LEG'}) ===`);
-      console.log(`MatchDay ${matchDay}: ${round.length} fixtures`);
-      
-      for (const match of round) {
-        const homeClub = validClubs.find(c => c.id === match.home);
-        const awayClub = validClubs.find(c => c.id === match.away);
-        
-        if (homeClub && awayClub) {
+    let matchDay = 1;
+    const startDate = new Date();
+    
+    // Generate round-robin fixtures (home and away)
+    for (let round = 0; round < 2; round++) { // Two rounds for home and away
+      for (let i = 0; i < clubs.length; i++) {
+        for (let j = i + 1; j < clubs.length; j++) {
+          const homeIndex = round === 0 ? i : j;
+          const awayIndex = round === 0 ? j : i;
+          
+          const homeClub = clubDetails[homeIndex];
+          const awayClub = clubDetails[awayIndex];
+          
           const fixtureDate = new Date(startDate);
           fixtureDate.setDate(startDate.getDate() + matchDay - 1);
           
-          const fixture: LeagueFixture = {
+          fixtures.push({
             id: doc(collection(db, 'fixtures')).id,
             matchDay,
             homeClubId: homeClub.id,
@@ -200,135 +175,14 @@ export class LeagueService {
             awayClubLogo: awayClub.clubLogo,
             scheduledDate: fixtureDate,
             status: matchDay === 1 ? 'available' : 'scheduled'
-          };
+          });
           
-          fixtures.push(fixture);
-          console.log(`  ${homeClub.clubName} (H) vs ${awayClub.clubName} (A)`);
+          matchDay++;
         }
       }
-      
-      matchDay++;
     }
     
-    // Enhanced validation and reporting
-    console.log(`\n=== FIXTURE GENERATION COMPLETE ===`);
-    console.log(`Total fixtures: ${fixtures.length}`);
-    console.log(`Total matchdays: ${matchDay - 1}`);
-    
-    // Validate no self-matches
-    const selfMatches = fixtures.filter(f => f.homeClubId === f.awayClubId);
-    if (selfMatches.length > 0) {
-      console.error(`ERROR: Found ${selfMatches.length} self-matches!`);
-      throw new Error('Self-matches detected');
-    }
-    
-    // Validate total games per team
-    const teamGameCount: {[teamId: string]: number} = {};
-    fixtures.forEach(f => {
-      teamGameCount[f.homeClubId] = (teamGameCount[f.homeClubId] || 0) + 1;
-      teamGameCount[f.awayClubId] = (teamGameCount[f.awayClubId] || 0) + 1;
-    });
-    
-    console.log('\n=== GAMES PER TEAM ===');
-    Object.entries(teamGameCount).forEach(([teamId, games]) => {
-      const club = validClubs.find(c => c.id === teamId);
-      console.log(`${club?.clubName}: ${games} games`);
-      
-      const expectedGames = (numClubs - 1) * 2;
-      if (games !== expectedGames) {
-        console.error(`ERROR: ${club?.clubName} has ${games} games, expected ${expectedGames}`);
-        throw new Error(`Incorrect number of games for ${club?.clubName}`);
-      }
-    });
-    
-    // Validate home/away balance
-    console.log('\n=== HOME/AWAY DISTRIBUTION ===');
-    const homeAwayCount: {[teamId: string]: {home: number, away: number}} = {};
-    
-    fixtures.forEach(fixture => {
-      if (!homeAwayCount[fixture.homeClubId]) {
-        homeAwayCount[fixture.homeClubId] = {home: 0, away: 0};
-      }
-      if (!homeAwayCount[fixture.awayClubId]) {
-        homeAwayCount[fixture.awayClubId] = {home: 0, away: 0};
-      }
-      
-      homeAwayCount[fixture.homeClubId].home++;
-      homeAwayCount[fixture.awayClubId].away++;
-    });
-    
-    Object.entries(homeAwayCount).forEach(([teamId, counts]) => {
-      const club = validClubs.find(c => c.id === teamId);
-      const expectedGames = numClubs - 1;
-      console.log(`${club?.clubName}: ${counts.home}H / ${counts.away}A (expected: ${expectedGames}/${expectedGames})`);
-      
-      // Check for major imbalances
-      if (Math.abs(counts.home - counts.away) > 1) {
-        console.warn(`WARNING: ${club?.clubName} has unbalanced home/away distribution`);
-      }
-      
-      if (counts.home !== expectedGames || counts.away !== expectedGames) {
-        console.error(`ERROR: ${club?.clubName} home/away count incorrect`);
-      }
-    });
-    
-    // Log matchday distribution
-    const matchDayCount: {[key: number]: number} = {};
-    fixtures.forEach(f => {
-      matchDayCount[f.matchDay] = (matchDayCount[f.matchDay] || 0) + 1;
-    });
-    
-    console.log('\n=== FIXTURES PER MATCHDAY ===');
-    Object.entries(matchDayCount).forEach(([day, count]) => {
-      console.log(`MatchDay ${day}: ${count} fixtures`);
-    });
-    
-    console.log('\nFixture generation completed successfully!');
     return fixtures;
-  }
-
-  /**
-   * NEW: Proper double round-robin algorithm based on your solution
-   */
-  private static generateDoubleRoundRobin(teams: string[]): Array<Array<{home: string, away: string}>> {
-    const t = [...teams];
-    if (t.length % 2 === 1) t.push("BYE");
-    const n = t.length;
-    const totalRounds = n - 1;
-    const matchesPerRound = n / 2;
-    const teamList = [...t];
-
-    const firstLeg: Array<Array<{home: string, away: string}>> = [];
-
-    for (let round = 0; round < totalRounds; round++) {
-      const roundMatches: Array<{home: string, away: string}> = [];
-      
-      for (let m = 0; m < matchesPerRound; m++) {
-        let home = teamList[m];
-        let away = teamList[n - 1 - m];
-
-        // IMPORTANT: alternate the fixed team's home/away by round parity
-        if (m === 0 && round % 2 === 1) {
-          [home, away] = [away, home];
-        }
-
-        if (home !== "BYE" && away !== "BYE") {
-          roundMatches.push({ home, away });
-        }
-      }
-      
-      if (roundMatches.length > 0) {
-        firstLeg.push(roundMatches);
-      }
-
-      // rotate keeping index 0 fixed (circle method)
-      teamList.splice(1, 0, teamList.pop() as string);
-    }
-
-    // second leg = same fixtures with swapped home/away
-    const secondLeg = firstLeg.map(r => r.map(({ home, away }) => ({ home: away, away: home })));
-
-    return [...firstLeg, ...secondLeg];
   }
 
   private static async initializeLeaderboard(clubIds: string[]) {
@@ -377,12 +231,7 @@ export class LeagueService {
     return snapshot.docs.map(doc => doc.data() as League);
   }
 
-  /**
-   * FIXED: Enhanced playMatch function with better error handling and logging
-   */
   static async playMatch(fixtureId: string, leagueId: string): Promise<LeagueMatch> {
-    console.log(`Playing match: fixture ${fixtureId} in league ${leagueId}`);
-    
     const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
     if (!leagueDoc.exists()) throw new Error('League not found');
     
@@ -390,22 +239,7 @@ export class LeagueService {
     const fixture = league.fixtures.find(f => f.id === fixtureId);
     
     if (!fixture) throw new Error('Fixture not found');
-    if (fixture.status !== 'available') throw new Error('Match not available or already played');
-    
-    // Check if match date has arrived
-    const now = new Date();
-    const matchDate = fixture.scheduledDate && typeof fixture.scheduledDate === 'object' && fixture.scheduledDate.toDate 
-      ? fixture.scheduledDate.toDate() 
-      : new Date(fixture.scheduledDate);
-    
-    // Reset time to compare only dates
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    matchDate.setHours(0, 0, 0, 0);
-    
-    if (matchDate > today) {
-      throw new Error('Match date has not arrived yet');
-    }
+    if (fixture.status !== 'available') throw new Error('Match not available');
     
     // Get both clubs
     const homeClub = await this.getClubById(fixture.homeClubId);
@@ -413,207 +247,13 @@ export class LeagueService {
     
     if (!homeClub || !awayClub) throw new Error('Clubs not found');
     
-    console.log(`Match: ${homeClub.clubName} vs ${awayClub.clubName}`);
+    // Simulate match
+    const matchResult = this.simulateLeagueMatch(homeClub, awayClub, fixture);
     
-    // CRITICAL: Mark fixture as being played to prevent duplicate matches
-    await this.markFixtureAsPlaying(leagueId, fixtureId);
+    // Update league with match result
+    await this.updateLeagueWithResult(leagueId, matchResult);
     
-    try {
-      // Use the enhanced simulation service
-      const simulationResult = await MatchSimulationService.simulateMatch(homeClub, awayClub, true);
-      console.log(`Match result: ${homeClub.clubName} ${simulationResult.homeScore} - ${simulationResult.awayScore} ${awayClub.clubName}`);
-      
-      const matchResult: LeagueMatch = {
-        id: doc(collection(db, 'leagueMatches')).id,
-        fixtureId: fixture.id,
-        homeClubId: homeClub.id,
-        awayClubId: awayClub.id,
-        homeClubName: homeClub.clubName,
-        awayClubName: awayClub.clubName,
-        homeClubLogo: homeClub.clubLogo,
-        awayClubLogo: awayClub.clubLogo,
-        homeScore: simulationResult.homeScore,
-        awayScore: simulationResult.awayScore,
-        matchDay: fixture.matchDay,
-        playedAt: new Date(),
-        isForfeited: false,
-        goalscorers: simulationResult.events.filter(e => e.type === 'goal').map(e => ({
-          playerId: e.playerId!,
-          playerName: e.playerName!,
-          minute: e.minute,
-          isHome: e.isHome
-        })),
-        assists: simulationResult.events.filter(e => e.type === 'goal' && e.assistPlayerId).map(e => ({
-          playerId: e.assistPlayerId!,
-          playerName: e.assistPlayerName!,
-          minute: e.minute,
-          isHome: e.isHome
-        })),
-        cards: simulationResult.events.filter(e => e.type === 'yellow_card' || e.type === 'red_card').map(e => ({
-          playerId: e.playerId!,
-          playerName: e.playerName!,
-          type: e.type === 'yellow_card' ? 'yellow' as const : 'red' as const,
-          minute: e.minute,
-          isHome: e.isHome
-        })),
-        commentary: [
-          ...simulationResult.events.map(e => e.description),
-          ...simulationResult.finalCommentary
-        ]
-      };
-      
-      // Store match result in database IMMEDIATELY
-      await setDoc(doc(db, 'leagueMatches', matchResult.id), matchResult);
-      console.log(`Match result stored with ID: ${matchResult.id}`);
-      
-      // Update league with match result and leaderboard
-      await this.updateLeagueWithResult(leagueId, matchResult);
-      
-      // Update player stamina and cards - League matches: 20% loss for starters
-      await this.updatePlayerStaminaAndCards(homeClub, awayClub, matchResult);
-      
-      console.log(`Match completed successfully`);
-      return matchResult;
-    } catch (error) {
-      // If simulation fails, reset fixture status
-      console.error('Match simulation failed:', error);
-      await this.resetFixtureStatus(leagueId, fixtureId);
-      throw error;
-    }
-  }
-
-  private static async markFixtureAsPlaying(leagueId: string, fixtureId: string): Promise<void> {
-    const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
-    if (!leagueDoc.exists()) return;
-    
-    const league = leagueDoc.data() as League;
-    const updatedFixtures = league.fixtures.map(fixture => 
-      fixture.id === fixtureId 
-        ? { ...fixture, status: 'playing' as const }
-        : fixture
-    );
-    
-    await updateDoc(doc(db, 'leagues', leagueId), {
-      fixtures: updatedFixtures
-    });
-  }
-
-  private static async resetFixtureStatus(leagueId: string, fixtureId: string): Promise<void> {
-    const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
-    if (!leagueDoc.exists()) return;
-    
-    const league = leagueDoc.data() as League;
-    const updatedFixtures = league.fixtures.map(fixture => 
-      fixture.id === fixtureId 
-        ? { ...fixture, status: 'available' as const }
-        : fixture
-    );
-    
-    await updateDoc(doc(db, 'leagues', leagueId), {
-      fixtures: updatedFixtures
-    });
-  }
-
-  /**
-   * FIXED: Enhanced player stamina and card updates with better logging
-   */
-  private static async updatePlayerStaminaAndCards(homeClub: Club, awayClub: Club, match: LeagueMatch): Promise<void> {
-    console.log(`Updating player stats for match ${match.id}`);
-    
-    // Update home club players
-    const updatedHomePlayers = homeClub.players.map(player => {
-      let updatedPlayer = { ...player };
-      
-      // Update stamina based on squad position
-      const currentStamina = player.staminaPct || 100;
-      if (player.squadPosition === 'starter') {
-        updatedPlayer.staminaPct = Math.max(0, currentStamina - 20);
-        console.log(`${player.name} (starter): stamina ${currentStamina}% -> ${updatedPlayer.staminaPct}%`);
-      } else if (player.squadPosition === 'substitute' || player.squadPosition === 'reserve') {
-        updatedPlayer.staminaPct = Math.min(100, currentStamina + 10);
-        console.log(`${player.name} (${player.squadPosition}): stamina ${currentStamina}% -> ${updatedPlayer.staminaPct}%`);
-      }
-      
-      // Update cards from match
-      const playerCards = match.cards.filter(c => c.playerId === player.id && c.isHome);
-      if (playerCards.length > 0) {
-        console.log(`${player.name} received ${playerCards.length} card(s)`);
-      }
-      
-      playerCards.forEach(card => {
-        if (card.type === 'yellow') {
-          const previousYellow = updatedPlayer.yellowCards || 0;
-          updatedPlayer.yellowCards = previousYellow + 1;
-          console.log(`${player.name}: yellow card ${previousYellow} -> ${updatedPlayer.yellowCards}`);
-          
-          // Check for suspension (2 yellow cards)
-          if (updatedPlayer.yellowCards >= 2) {
-            updatedPlayer.isSuspended = true;
-            updatedPlayer.suspensionReason = 'yellow_cards';
-            updatedPlayer.yellowCards = 0; // Reset after suspension
-            console.log(`${player.name}: SUSPENDED for yellow cards`);
-          }
-        } else if (card.type === 'red') {
-          updatedPlayer.redCards = (updatedPlayer.redCards || 0) + 1;
-          updatedPlayer.isSuspended = true;
-          updatedPlayer.suspensionReason = 'red_card';
-          console.log(`${player.name}: SUSPENDED for red card`);
-        }
-      });
-      
-      return updatedPlayer;
-    });
-    
-    // Update away club players
-    const updatedAwayPlayers = awayClub.players.map(player => {
-      let updatedPlayer = { ...player };
-      
-      // Update stamina based on squad position
-      const currentStamina = player.staminaPct || 100;
-      if (player.squadPosition === 'starter') {
-        updatedPlayer.staminaPct = Math.max(0, currentStamina - 20);
-        console.log(`${player.name} (starter): stamina ${currentStamina}% -> ${updatedPlayer.staminaPct}%`);
-      } else if (player.squadPosition === 'substitute' || player.squadPosition === 'reserve') {
-        updatedPlayer.staminaPct = Math.min(100, currentStamina + 10);
-        console.log(`${player.name} (${player.squadPosition}): stamina ${currentStamina}% -> ${updatedPlayer.staminaPct}%`);
-      }
-      
-      // Update cards from match
-      const playerCards = match.cards.filter(c => c.playerId === player.id && !c.isHome);
-      if (playerCards.length > 0) {
-        console.log(`${player.name} received ${playerCards.length} card(s)`);
-      }
-      
-      playerCards.forEach(card => {
-        if (card.type === 'yellow') {
-          const previousYellow = updatedPlayer.yellowCards || 0;
-          updatedPlayer.yellowCards = previousYellow + 1;
-          console.log(`${player.name}: yellow card ${previousYellow} -> ${updatedPlayer.yellowCards}`);
-          
-          // Check for suspension (2 yellow cards)
-          if (updatedPlayer.yellowCards >= 2) {
-            updatedPlayer.isSuspended = true;
-            updatedPlayer.suspensionReason = 'yellow_cards';
-            updatedPlayer.yellowCards = 0; // Reset after suspension
-            console.log(`${player.name}: SUSPENDED for yellow cards`);
-          }
-        } else if (card.type === 'red') {
-          updatedPlayer.redCards = (updatedPlayer.redCards || 0) + 1;
-          updatedPlayer.isSuspended = true;
-          updatedPlayer.suspensionReason = 'red_card';
-          console.log(`${player.name}: SUSPENDED for red card`);
-        }
-      });
-      
-      return updatedPlayer;
-    });
-    
-    // Update both clubs in database
-    console.log(`Updating ${homeClub.clubName} players in database`);
-    await ClubService.updateClubPlayers(homeClub.id, updatedHomePlayers);
-    
-    console.log(`Updating ${awayClub.clubName} players in database`);
-    await ClubService.updateClubPlayers(awayClub.id, updatedAwayPlayers);
+    return matchResult;
   }
 
   private static async getClubById(clubId: string): Promise<Club | null> {
@@ -622,18 +262,178 @@ export class LeagueService {
     return clubsSnapshot.docs[0]?.data() as Club || null;
   }
 
-  /**
-   * FIXED: Enhanced league update with proper leaderboard sorting and matchDay progression
-   */
-  private static async updateLeagueWithResult(leagueId: string, match: LeagueMatch): Promise<void> {
-    console.log(`Updating league ${leagueId} with match result`);
+  private static simulateLeagueMatch(homeClub: Club, awayClub: Club, fixture: LeagueFixture): LeagueMatch {
+    // Similar to friendly match simulation but for league context
+    const homeStrength = this.calculateTeamStrength(homeClub.players.slice(0, 11));
+    const awayStrength = this.calculateTeamStrength(awayClub.players.slice(0, 11));
     
+    const result = this.runMatchSimulation(homeClub, awayClub, homeStrength, awayStrength);
+    
+    return {
+      id: doc(collection(db, 'leagueMatches')).id,
+      fixtureId: fixture.id,
+      homeClubId: homeClub.id,
+      awayClubId: awayClub.id,
+      homeClubName: homeClub.clubName,
+      awayClubName: awayClub.clubName,
+      homeClubLogo: homeClub.clubLogo,
+      awayClubLogo: awayClub.clubLogo,
+      homeScore: result.homeScore,
+      awayScore: result.awayScore,
+      matchDay: fixture.matchDay,
+      playedAt: new Date(),
+      isForfeited: false,
+      goalscorers: result.goalscorers,
+      assists: result.assists,
+      cards: result.cards,
+      commentary: result.commentary
+    };
+  }
+
+  private static calculateTeamStrength(players: FirebasePlayer[]): number {
+    if (players.length === 0) return 0;
+    
+    const totalRating = players.reduce((sum, player) => {
+      const attributes = Object.values(player.attributes).filter(v => typeof v === 'number') as number[];
+      const playerRating = attributes.reduce((s, v) => s + v, 0) / attributes.length;
+      
+      // Apply stamina modifier
+      const staminaModifier = player.staminaPct >= 60 ? 1 : 
+                            player.staminaPct >= 30 ? 0.85 : 0.7;
+      
+      return sum + (playerRating * staminaModifier);
+    }, 0);
+    
+    return totalRating / players.length;
+  }
+
+  private static runMatchSimulation(homeClub: Club, awayClub: Club, homeStrength: number, awayStrength: number) {
+    const commentary: string[] = [];
+    const goalscorers: LeagueMatch['goalscorers'] = [];
+    const assists: LeagueMatch['assists'] = [];
+    const cards: LeagueMatch['cards'] = [];
+    
+    let homeScore = 0;
+    let awayScore = 0;
+    
+    commentary.push(`⚽ Match kicks off: ${homeClub.clubName} vs ${awayClub.clubName}!`);
+    
+    // Simulate 90 minutes in 9 periods of 10 minutes
+    for (let period = 1; period <= 9; period++) {
+      const minute = period * 10;
+      
+      // Calculate chances based on strength difference
+      const strengthDiff = homeStrength - awayStrength;
+      const homeChance = 0.5 + (strengthDiff * 0.02);
+      
+      // Random events
+      if (Math.random() < 0.15) {
+        // Goal chance
+        if (Math.random() < homeChance) {
+          homeScore++;
+          const scorer = this.getRandomPlayer(homeClub.players.slice(0, 11), ['Forward', 'Winger', 'Midfield']);
+          const assister = this.getRandomPlayer(homeClub.players.slice(0, 11));
+          
+          goalscorers.push({
+            playerId: scorer.id,
+            playerName: scorer.name,
+            minute,
+            isHome: true
+          });
+          
+          if (assister && assister.id !== scorer.id) {
+            assists.push({
+              playerId: assister.id,
+              playerName: assister.name,
+              minute,
+              isHome: true
+            });
+          }
+          
+          commentary.push(`⚽ GOAL! ${homeClub.clubName} - ${scorer.name} scores in the ${minute}th minute!`);
+        } else {
+          awayScore++;
+          const scorer = this.getRandomPlayer(awayClub.players.slice(0, 11), ['Forward', 'Winger', 'Midfield']);
+          const assister = this.getRandomPlayer(awayClub.players.slice(0, 11));
+          
+          goalscorers.push({
+            playerId: scorer.id,
+            playerName: scorer.name,
+            minute,
+            isHome: false
+          });
+          
+          if (assister && assister.id !== scorer.id) {
+            assists.push({
+              playerId: assister.id,
+              playerName: assister.name,
+              minute,
+              isHome: false
+            });
+          }
+          
+          commentary.push(`⚽ GOAL! ${awayClub.clubName} - ${scorer.name} scores in the ${minute}th minute!`);
+        }
+      }
+      
+      // Card events
+      if (Math.random() < 0.08) {
+        const isHome = Math.random() < 0.5;
+        const player = this.getRandomPlayer(
+          isHome ? homeClub.players.slice(0, 11) : awayClub.players.slice(0, 11)
+        );
+        const cardType = Math.random() < 0.8 ? 'yellow' : 'red';
+        
+        cards.push({
+          playerId: player.id,
+          playerName: player.name,
+          type: cardType,
+          minute,
+          isHome
+        });
+        
+        if (cardType === 'red') {
+          commentary.push(`🟥 RED CARD! ${isHome ? homeClub.clubName : awayClub.clubName} - ${player.name} is sent off!`);
+        } else {
+          commentary.push(`🟨 Yellow card for ${isHome ? homeClub.clubName : awayClub.clubName} - ${player.name}.`);
+        }
+      }
+    }
+    
+    commentary.push(`⏱️ Full time: ${homeClub.clubName} ${homeScore}-${awayScore} ${awayClub.clubName}`);
+    
+    return {
+      homeScore,
+      awayScore,
+      goalscorers,
+      assists,
+      cards,
+      commentary
+    };
+  }
+
+  private static getRandomPlayer(players: FirebasePlayer[], preferredPositions?: string[]): FirebasePlayer {
+    if (preferredPositions) {
+      const preferred = players.filter(p => 
+        preferredPositions.some(pos => p.position.includes(pos))
+      );
+      if (preferred.length > 0) {
+        return preferred[Math.floor(Math.random() * preferred.length)];
+      }
+    }
+    return players[Math.floor(Math.random() * players.length)];
+  }
+
+  private static async updateLeagueWithResult(leagueId: string, match: LeagueMatch): Promise<void> {
     const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
     if (!leagueDoc.exists()) return;
     
     const league = leagueDoc.data() as League;
     
-    // Update fixtures - CRITICAL: Mark fixture as played to prevent replay
+    // Update player cards and suspensions
+    await this.updatePlayerCards(match);
+    
+    // Update fixtures
     const updatedFixtures = league.fixtures.map(fixture => 
       fixture.id === match.fixtureId 
         ? { 
@@ -642,7 +442,6 @@ export class LeagueService {
             result: {
               homeScore: match.homeScore,
               awayScore: match.awayScore,
-              playedAt: new Date(),
               isForfeited: match.isForfeited
             }
           }
@@ -652,77 +451,46 @@ export class LeagueService {
     // Add match to matches array
     const updatedMatches = [...league.matches, match];
     
-    // Update leaderboard - FIXED: Ensure proper sorting and updates
+    // Update leaderboard
     const updatedLeaderboard = this.updateLeaderboard(league.leaderboard, match);
-    console.log('Updated leaderboard:', updatedLeaderboard.map(t => `${t.clubName}: ${t.points}pts`));
     
     // Update top scorers and assists
     const updatedTopScorers = this.updateTopScorers(league.topScorers, match);
     const updatedTopAssists = this.updateTopAssists(league.topAssists, match);
     
-    // FIXED: Check if we need to advance to next match day
+    // Check if we need to advance to next match day
     const currentDayFixtures = updatedFixtures.filter(f => f.matchDay === league.currentMatchDay);
     const allCurrentDayPlayed = currentDayFixtures.every(f => f.status === 'played' || f.status === 'forfeited');
     
     let nextMatchDay = league.currentMatchDay;
-    let statusUpdate = {};
-    
-    console.log(`Current matchDay ${league.currentMatchDay}: ${currentDayFixtures.length} fixtures, all played: ${allCurrentDayPlayed}`);
-    
     if (allCurrentDayPlayed) {
       nextMatchDay++;
-      console.log(`Advancing to matchDay ${nextMatchDay}`);
-      
       // Make next day fixtures available
-      let nextDayFixtures = 0;
       updatedFixtures.forEach(fixture => {
         if (fixture.matchDay === nextMatchDay && fixture.status === 'scheduled') {
           fixture.status = 'available';
-          nextDayFixtures++;
         }
       });
-      
-      console.log(`Made ${nextDayFixtures} fixtures available for matchDay ${nextMatchDay}`);
-      
-      // Check if league is finished
-      const totalFixtures = updatedFixtures.length;
-      const playedFixtures = updatedFixtures.filter(f => f.status === 'played').length;
-      
-      console.log(`League progress: ${playedFixtures}/${totalFixtures} fixtures played`);
-      
-      if (playedFixtures === totalFixtures) {
-        statusUpdate = { status: 'finished', finishedAt: new Date() };
-        console.log('League is now finished!');
-      }
     }
     
-    // CRITICAL UPDATE: Ensure atomic update to prevent race conditions
-    const updateData = {
+    await updateDoc(doc(db, 'leagues', leagueId), {
       fixtures: updatedFixtures,
       matches: updatedMatches,
       leaderboard: updatedLeaderboard,
       topScorers: updatedTopScorers,
       topAssists: updatedTopAssists,
-      currentMatchDay: nextMatchDay,
-      lastUpdated: new Date(),
-      ...statusUpdate
-    };
-    
-    await updateDoc(doc(db, 'leagues', leagueId), updateData);
-    console.log(`League ${leagueId} updated successfully`);
+      currentMatchDay: nextMatchDay
+    });
   }
 
-  /**
-   * FIXED: Enhanced leaderboard update with proper sorting and tie-breaking
-   */
   private static updateLeaderboard(leaderboard: League['leaderboard'], match: LeagueMatch) {
-    const updatedLeaderboard = leaderboard.map(team => {
+    return leaderboard.map(team => {
       if (team.clubId === match.homeClubId) {
         const points = match.homeScore > match.awayScore ? 3 : match.homeScore === match.awayScore ? 1 : 0;
         const homeYellowCards = match.cards?.filter(c => c.isHome && c.type === 'yellow').length || 0;
         const homeRedCards = match.cards?.filter(c => c.isHome && c.type === 'red').length || 0;
         
-        const updated = {
+        return {
           ...team,
           played: team.played + 1,
           won: match.homeScore > match.awayScore ? team.won + 1 : team.won,
@@ -735,15 +503,12 @@ export class LeagueService {
           yellowCards: team.yellowCards + homeYellowCards,
           redCards: team.redCards + homeRedCards
         };
-        
-        console.log(`${team.clubName}: +${points} points, GD: ${match.homeScore - match.awayScore}, Total: ${updated.points}pts`);
-        return updated;
       } else if (team.clubId === match.awayClubId) {
         const points = match.awayScore > match.homeScore ? 3 : match.awayScore === match.homeScore ? 1 : 0;
         const awayYellowCards = match.cards?.filter(c => !c.isHome && c.type === 'yellow').length || 0;
         const awayRedCards = match.cards?.filter(c => !c.isHome && c.type === 'red').length || 0;
         
-        const updated = {
+        return {
           ...team,
           played: team.played + 1,
           won: match.awayScore > match.homeScore ? team.won + 1 : team.won,
@@ -756,34 +521,19 @@ export class LeagueService {
           yellowCards: team.yellowCards + awayYellowCards,
           redCards: team.redCards + awayRedCards
         };
-        
-        console.log(`${team.clubName}: +${points} points, GD: ${match.awayScore - match.homeScore}, Total: ${updated.points}pts`);
-        return updated;
       }
       return team;
-    });
-
-    // FIXED: Proper sorting with multiple tie-breakers
-    return updatedLeaderboard.sort((a, b) => {
-      // 1. Points (descending)
+    }).sort((a, b) => {
       if (b.points !== a.points) return b.points - a.points;
-      
-      // 2. Goal difference (descending)
       if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
-      
-      // 3. Goals for (descending)
-      if (b.goalsFor !== a.goalsFor) return b.goalsFor - a.goalsFor;
-      
-      // 4. Fewer cards is better (ascending)
+      return b.goalsFor - a.goalsFor;
+      // Tie-breaker: fewer cards is better
       const aCardTotal = a.yellowCards + (a.redCards * 2);
       const bCardTotal = b.yellowCards + (b.redCards * 2);
       return aCardTotal - bCardTotal;
     });
   }
 
-  /**
-   * FIXED: Enhanced top scorers update with proper tracking
-   */
   private static updateTopScorers(topScorers: League['topScorers'], match: LeagueMatch) {
     const updatedScorers = [...topScorers];
     
@@ -791,26 +541,20 @@ export class LeagueService {
       const existingScorer = updatedScorers.find(s => s.playerId === goal.playerId);
       if (existingScorer) {
         existingScorer.goals++;
-        console.log(`${existingScorer.playerName}: ${existingScorer.goals} goals`);
       } else {
-        const newScorer = {
+        updatedScorers.push({
           playerId: goal.playerId,
           playerName: goal.playerName,
           clubName: goal.isHome ? match.homeClubName : match.awayClubName,
           clubLogo: goal.isHome ? match.homeClubLogo : match.awayClubLogo,
           goals: 1
-        };
-        updatedScorers.push(newScorer);
-        console.log(`New scorer: ${newScorer.playerName} (1 goal)`);
+        });
       }
     });
     
     return updatedScorers.sort((a, b) => b.goals - a.goals).slice(0, 10);
   }
 
-  /**
-   * FIXED: Enhanced top assists update with proper tracking
-   */
   private static updateTopAssists(topAssists: League['topAssists'], match: LeagueMatch) {
     const updatedAssists = [...topAssists];
     
@@ -818,17 +562,14 @@ export class LeagueService {
       const existingAssister = updatedAssists.find(a => a.playerId === assist.playerId);
       if (existingAssister) {
         existingAssister.assists++;
-        console.log(`${existingAssister.playerName}: ${existingAssister.assists} assists`);
       } else {
-        const newAssister = {
+        updatedAssists.push({
           playerId: assist.playerId,
           playerName: assist.playerName,
           clubName: assist.isHome ? match.homeClubName : match.awayClubName,
           clubLogo: assist.isHome ? match.homeClubLogo : match.awayClubLogo,
           assists: 1
-        };
-        updatedAssists.push(newAssister);
-        console.log(`New assister: ${newAssister.playerName} (1 assist)`);
+        });
       }
     });
     
@@ -859,7 +600,6 @@ export class LeagueService {
     const sortedLeaderboard = [...league.leaderboard].sort((a, b) => {
       if (b.points !== a.points) return b.points - a.points;
       if (b.goalDifference !== a.goalDifference) return b.goalDifference - a.goalDifference;
-      return b.goalsFor - a.goalsFor;
     });
     
     for (let i = 0; i < sortedLeaderboard.length; i++) {
@@ -875,6 +615,72 @@ export class LeagueService {
       const currentBudget = await ClubService.getClubBudget(team.clubId);
       await ClubService.updateClubBudget(team.clubId, currentBudget + prize);
     }
+  }
+
+  private static async updatePlayerCards(match: LeagueMatch): Promise<void> {
+    if (!match.cards || match.cards.length === 0) return;
+    
+    // Get both clubs
+    const homeClub = await this.getClubById(match.homeClubId);
+    const awayClub = await this.getClubById(match.awayClubId);
+    
+    if (!homeClub || !awayClub) return;
+    
+    // Update home club players
+    const updatedHomePlayers = homeClub.players.map(player => {
+      const playerCards = match.cards.filter(c => c.playerId === player.id && c.isHome);
+      if (playerCards.length === 0) return player;
+      
+      let updatedPlayer = { ...player };
+      
+      playerCards.forEach(card => {
+        if (card.type === 'yellow') {
+          updatedPlayer.yellowCards = (updatedPlayer.yellowCards || 0) + 1;
+          // Check for suspension (2 yellow cards)
+          if (updatedPlayer.yellowCards >= 2) {
+            updatedPlayer.isSuspended = true;
+            updatedPlayer.suspensionReason = 'yellow_cards';
+            updatedPlayer.yellowCards = 0; // Reset after suspension
+          }
+        } else if (card.type === 'red') {
+          updatedPlayer.redCards = (updatedPlayer.redCards || 0) + 1;
+          updatedPlayer.isSuspended = true;
+          updatedPlayer.suspensionReason = 'red_card';
+        }
+      });
+      
+      return updatedPlayer;
+    });
+    
+    // Update away club players
+    const updatedAwayPlayers = awayClub.players.map(player => {
+      const playerCards = match.cards.filter(c => c.playerId === player.id && !c.isHome);
+      if (playerCards.length === 0) return player;
+      
+      let updatedPlayer = { ...player };
+      
+      playerCards.forEach(card => {
+        if (card.type === 'yellow') {
+          updatedPlayer.yellowCards = (updatedPlayer.yellowCards || 0) + 1;
+          // Check for suspension (2 yellow cards)
+          if (updatedPlayer.yellowCards >= 2) {
+            updatedPlayer.isSuspended = true;
+            updatedPlayer.suspensionReason = 'yellow_cards';
+            updatedPlayer.yellowCards = 0; // Reset after suspension
+          }
+        } else if (card.type === 'red') {
+          updatedPlayer.redCards = (updatedPlayer.redCards || 0) + 1;
+          updatedPlayer.isSuspended = true;
+          updatedPlayer.suspensionReason = 'red_card';
+        }
+      });
+      
+      return updatedPlayer;
+    });
+    
+    // Update both clubs in database
+    await ClubService.updateClubPlayers(homeClub.id, updatedHomePlayers);
+    await ClubService.updateClubPlayers(awayClub.id, updatedAwayPlayers);
   }
 
   private static async awardPlayerReward(clubId: string, playerReward: FirebasePlayer): Promise<void> {
@@ -923,267 +729,4 @@ export class LeagueService {
       resetAt: new Date()
     });
   }
-
-  /**
-   * ADDED: Helper method to clear player suspensions (for new matchDay)
-   */
-  static async clearPlayerSuspensions(leagueId: string): Promise<void> {
-    console.log(`Clearing player suspensions for league ${leagueId}`);
-    
-    const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
-    if (!leagueDoc.exists()) return;
-    
-    const league = leagueDoc.data() as League;
-    
-    // Clear suspensions for all clubs in the league
-    for (const clubId of league.clubs) {
-      const club = await this.getClubById(clubId);
-      if (!club) continue;
-      
-      const updatedPlayers = club.players.map(player => {
-        if (player.isSuspended) {
-          console.log(`Clearing suspension for ${player.name}`);
-          return {
-            ...player,
-            isSuspended: false,
-            suspensionReason: undefined
-          };
-        }
-        return player;
-      });
-      
-      await ClubService.updateClubPlayers(clubId, updatedPlayers);
-    }
-  }
-
-  /**
-   * NEW: Auto-forfeit system - automatically forfeits games that weren't played by deadline
-   * Should be called daily or when checking league status
-   */
-  static async processAutoForfeits(leagueId: string): Promise<number> {
-    console.log(`Processing auto-forfeits for league ${leagueId}`);
-    
-    const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
-    if (!leagueDoc.exists()) {
-      console.log('League not found');
-      return 0;
-    }
-    
-    const league = leagueDoc.data() as League;
-    if (league.status !== 'started') {
-      console.log('League not started, skipping auto-forfeits');
-      return 0;
-    }
-    
-    const today = new Date();
-    today.setHours(23, 59, 59, 999); // End of today
-    
-    let forfeitCount = 0;
-    const updatedFixtures = [];
-    const forfeitedMatches = [];
-    
-    for (const fixture of league.fixtures) {
-      // Skip already played/forfeited fixtures
-      if (fixture.status === 'played' || fixture.status === 'forfeited') {
-        updatedFixtures.push(fixture);
-        continue;
-      }
-      
-      const matchDate = fixture.scheduledDate && typeof fixture.scheduledDate === 'object' && fixture.scheduledDate.toDate 
-        ? fixture.scheduledDate.toDate() 
-        : new Date(fixture.scheduledDate);
-      
-      // Check if match date has passed (game should have been played yesterday or earlier)
-      const dayAfterMatch = new Date(matchDate);
-      dayAfterMatch.setDate(dayAfterMatch.getDate() + 1);
-      dayAfterMatch.setHours(0, 0, 0, 0);
-      
-      if (today >= dayAfterMatch && fixture.status === 'available') {
-        console.log(`Auto-forfeiting match: ${fixture.homeClubName} vs ${fixture.awayClubName} (scheduled for ${matchDate.toDateString()})`);
-        
-        // FIXED: Award forfeit to away team (3-0)
-        const forfeitMatch: LeagueMatch = {
-          id: doc(collection(db, 'leagueMatches')).id,
-          fixtureId: fixture.id,
-          homeClubId: fixture.homeClubId,
-          awayClubId: fixture.awayClubId,
-          homeClubName: fixture.homeClubName,
-          awayClubName: fixture.awayClubName,
-          homeClubLogo: fixture.homeClubLogo,
-          awayClubLogo: fixture.awayClubLogo,
-          homeScore: 0,
-          awayScore: 3,
-          matchDay: fixture.matchDay,
-          playedAt: new Date(),
-          isForfeited: true,
-          goalscorers: [], // No goalscorers in forfeit
-          assists: [], // No assists in forfeit
-          cards: [], // No cards in forfeit
-          commentary: [
-            `Match forfeited by ${fixture.homeClubName}`,
-            `${fixture.awayClubName} awarded 3-0 victory`,
-            'Forfeit processed automatically due to no-show'
-          ]
-        };
-        
-        // Store forfeited match in database
-        await setDoc(doc(db, 'leagueMatches', forfeitMatch.id), forfeitMatch);
-        
-        // Update fixture status
-        const updatedFixture = {
-          ...fixture,
-          status: 'forfeited' as const,
-          result: {
-            homeScore: 0,
-            awayScore: 3,
-            playedAt: new Date(),
-            isForfeited: true
-          }
-        };
-        
-        updatedFixtures.push(updatedFixture);
-        forfeitedMatches.push(forfeitMatch);
-        forfeitCount++;
-        
-      } else {
-        updatedFixtures.push(fixture);
-      }
-    }
-    
-    if (forfeitCount > 0) {
-      console.log(`${forfeitCount} matches auto-forfeited`);
-      
-      // Update league with forfeited fixtures and matches
-      const updatedMatches = [...league.matches, ...forfeitedMatches];
-      
-      // Update leaderboard with forfeit results
-      let updatedLeaderboard = league.leaderboard;
-      let updatedTopScorers = league.topScorers;
-      let updatedTopAssists = league.topAssists;
-      
-      // Process each forfeit for leaderboard updates
-      forfeitedMatches.forEach(match => {
-        updatedLeaderboard = this.updateLeaderboard(updatedLeaderboard, match);
-        updatedTopScorers = this.updateTopScorers(updatedTopScorers, match);
-        updatedTopAssists = this.updateTopAssists(updatedTopAssists, match);
-      });
-      
-      // Check if we need to advance matchDays after forfeits
-      const currentDayFixtures = updatedFixtures.filter(f => f.matchDay === league.currentMatchDay);
-      const allCurrentDayComplete = currentDayFixtures.every(f => f.status === 'played' || f.status === 'forfeited');
-      
-      let nextMatchDay = league.currentMatchDay;
-      let statusUpdate = {};
-      
-      if (allCurrentDayComplete) {
-        nextMatchDay++;
-        console.log(`Advancing to matchDay ${nextMatchDay} after auto-forfeits`);
-        
-        // Make next day fixtures available
-        updatedFixtures.forEach(fixture => {
-          if (fixture.matchDay === nextMatchDay && fixture.status === 'scheduled') {
-            fixture.status = 'available';
-          }
-        });
-        
-        // Check if league is finished
-        const totalFixtures = updatedFixtures.length;
-        const completedFixtures = updatedFixtures.filter(f => f.status === 'played' || f.status === 'forfeited').length;
-        
-        if (completedFixtures === totalFixtures) {
-          statusUpdate = { status: 'finished', finishedAt: new Date() };
-          console.log('League finished after auto-forfeits!');
-        }
-      }
-      
-      // Update league in database
-      const updateData = {
-        fixtures: updatedFixtures,
-        matches: updatedMatches,
-        leaderboard: updatedLeaderboard,
-        topScorers: updatedTopScorers,
-        topAssists: updatedTopAssists,
-        currentMatchDay: nextMatchDay,
-        lastUpdated: new Date(),
-        ...statusUpdate
-      };
-      
-      await updateDoc(doc(db, 'leagues', leagueId), updateData);
-      console.log(`League updated with ${forfeitCount} auto-forfeits`);
-    } else {
-      console.log('No matches to auto-forfeit');
-    }
-    
-    return forfeitCount;
-  }
-
-  /**
-   * NEW: Process auto-forfeits for all active leagues
-   * Call this function daily (e.g., via cron job or scheduled function)
-   */
-  static async processAllLeagueForfeits(): Promise<{[leagueId: string]: number}> {
-    console.log('Processing auto-forfeits for all active leagues');
-    
-    const leaguesRef = collection(db, 'leagues');
-    const activeLeaguesQuery = query(leaguesRef, where('status', '==', 'started'));
-    const snapshot = await getDocs(activeLeaguesQuery);
-    
-    const results: {[leagueId: string]: number} = {};
-    
-    for (const doc of snapshot.docs) {
-      const league = doc.data() as League;
-      try {
-        const forfeitCount = await this.processAutoForfeits(league.id);
-        results[league.id] = forfeitCount;
-      } catch (error) {
-        console.error(`Error processing forfeits for league ${league.id}:`, error);
-        results[league.id] = -1; // Error indicator
-      }
-    }
-    
-    console.log('Auto-forfeit processing complete:', results);
-    return results;
-  }
-
-  /**
-   * ADDED: Helper method to get detailed league statistics
-   */
-  static async getLeagueStatistics(leagueId: string): Promise<{
-    totalFixtures: number;
-    playedFixtures: number;
-    forfeitedFixtures: number;
-    currentMatchDay: number;
-    totalMatchDays: number;
-    isFinished: boolean;
-    topScorer?: { name: string; goals: number };
-    topAssister?: { name: string; assists: number };
-  } | null> {
-    const leagueDoc = await getDoc(doc(db, 'leagues', leagueId));
-    if (!leagueDoc.exists()) return null;
-    
-    const league = leagueDoc.data() as League;
-    
-    const totalFixtures = league.fixtures.length;
-    const playedFixtures = league.fixtures.filter(f => f.status === 'played').length;
-    const forfeitedFixtures = league.fixtures.filter(f => f.status === 'forfeited').length;
-    const totalMatchDays = Math.max(...league.fixtures.map(f => f.matchDay));
-    
-    return {
-      totalFixtures,
-      playedFixtures,
-      forfeitedFixtures,
-      currentMatchDay: league.currentMatchDay,
-      totalMatchDays,
-      isFinished: league.status === 'finished',
-      topScorer: league.topScorers[0] ? {
-        name: league.topScorers[0].playerName,
-        goals: league.topScorers[0].goals
-      } : undefined,
-      topAssister: league.topAssists[0] ? {
-        name: league.topAssists[0].playerName,
-        assists: league.topAssists[0].assists
-      } : undefined
-    };
-  }
 }
-      
